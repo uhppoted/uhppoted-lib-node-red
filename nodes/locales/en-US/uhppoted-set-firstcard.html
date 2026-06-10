@@ -1,0 +1,114 @@
+<script type="text/html" data-template-name="uhppoted-set-firstcard">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-topic"><i class="fa fa-tag"></i>Topic</label>
+        <input type="text" id="node-input-topic" placeholder="Message topic" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-config"><i class="fa fa-tag"></i>Configuration</label>
+        <input id="node-input-config" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="uhppoted-set-firstcard">
+    <p>Configures the first-card mode for a controller managed door.</p>
+
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload<span class="property-type">object</span></dt>
+        <dd>JSON object with the controller ID, door and first-card configuration for 'set-firstcard'</dd>
+        <dt class="optional">topic<span class="property-type">string</span></dt>
+        <dd>identifying message topic for output</dd>
+    </dl>
+
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload<span class="property-type">object</span></dt>
+        <dd>JSON object with the succeeded/failed result</dd>
+        <dt>topic<span class="property-type">string</span></dt>
+        <dd>message topic copied from input</dd>
+    </dl>
+
+    <h3>Details</h3>
+    <p>The input <code>msg.payload</code> is a JSON object identifying the destination controller, door and
+       the first-card configuration.</p>
+    <p>The controller is identified by specifying either the (legacy) 'deviceId' or the composite
+       'controller' object which supports both UDP and TCP connections. Defaults to broadcast UDP if
+       the address or protocol are not valid.</p>
+    <dl class="message-properties">
+        <dt>deviceId<span class="property-type">uint32</span></dt>
+        <dd>controller serial number</dd>
+        <dt>controller.id<span class="property-type">uint32</span></dt>
+        <dd>controller serial number</dd>
+        <dt>controller.address<span class="property-type">string</span></dt>
+        <dd>controller IPv4 address</dd>
+        <dt>controller.protocol<span class="property-type">string</span></dt>
+        <dd>controller connection protocol ('udp' or 'tcp')</dd>
+        <dt>door<span class="property-type">uint8</span></dt>
+        <dd>Door ID [1..4] of the door to be configured with first-card mode</dd>
+        <dt>firstcard.start_time<span class="property-type">string</span></dt>
+        <dd>Time of day from which first-card mode can be activated</d>
+        <dt>firstcard.end_time<span class="property-type">string</span></dt>
+        <dd>Time of day after which first-card mode is deactivated</d>
+        <dt>firstcard.active_mode<span class="property-type">string</span></dt>
+        <dd>Door control mode after first-card swipe ('controlled', 'normally-open' or 'normally-closed'</d>
+        <dt>firstcard.inactive_mode<span class="property-type">string</span></dt>
+        <dd>Door control mode when first-card mode is deactivated ('controlled', 'normally-open', 'normally-closed' or 'first-card only'</d>
+        <dt>firstcard.weekdays<span class="property-type">array of string</span></dt>
+        <dd>List of weekdays on which the first-card mode can be activated</d>
+    </dl>
+    <h4>Example:</h4>
+    <pre>
+  {
+    "deviceId": 405419896,
+    "door": 3,
+    "firstcard": {
+        "start_time": "08:30",
+        "end_time": "16:45",
+        "active_mode": "normally-open",
+        "inactive_mode": "first-card only",
+        "weekdays": "Monday,Wednesday,Friday"
+    }
+  }</pre>
+    <pre>
+  {
+    "controller": {
+        "controller": 405419896,
+        "address": "192.168.1.100",
+        "protocol": "tcp"
+    },
+    "door": 3,
+    "firstcard": {
+        "start_time": "08:30",
+        "end_time": "16:45",
+        "active_mode": "normally-open",
+        "inactive_mode": "first-card only",
+        "weekdays": "Monday,Wednesday,Friday"
+    }
+  }</pre>
+
+    <p>The output is a JSON object containing the result. The first-card configuration will be marked as 
+       pending until activated by a refresh-task-list command.</p>
+    <dl class="message-properties">
+        <dt>deviceId<span class="property-type">uint32</span></dt>
+        <dd>controller serial number</dd>
+        <dt>ok<span class="property-type">boolean</span></dt>
+        <dd>true if the first-configuration was accepted. NOTE: the first-card configuration is only enabled after
+            invoking refresh-task-list</dd>
+    </dl>
+    <h4>Example:</h4>
+    <pre>
+  {
+    "deviceId": 405419896,
+    "ok": true
+  }</pre>
+
+    <h3>References</h3>
+    <ul>
+        <li><a href="https://github.com/uhppoted">uhppoted</a>: GitHub umbrella project</li>
+        <li><a href="https://github.com/uhppoted/uhppoted-lib-node-red">uhppoted-lib-node-red</a>: GitHub project</li>
+    </ul>
+</script>

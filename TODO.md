@@ -2,24 +2,15 @@
 
 ### IN PROGRESS
 
-- [x] ~~`[DEP0040] DeprecationWarning: The `punycode` module is deprecated`~~
-      - cf. https://github.com/node-red/node-red-dev-cli/issues/28
+- [ ] check the `(done())`  thing - looks like it's possibly wrong
 
-- [x] anti-passback (cf. https://github.com/uhppoted/uhppoted/issues/60)
-      - [x] `get-antipassback`
-      - [x] `set-antipassback`
+- [ ] 'set-firstcard' API (cf. https://github.com/uhppoted/uhppoted/issues/82)
+      - [x] `set-firstcard`
       - [x] examples
-      - [x] internationalisation
-      - [x] integration tests
-      - [x] CHANGELOG
-      - [x] README
-
-- [x] ~~Validation warning~~
-      - cf. https://github.com/node-red/node-red-dev-cli/issues/30
-    - https://github.com/node-red/node-red-dev-cli/blob/main/docs/P06.md
-    - https://github.com/node-red/node-red-dev-cli/blob/main/src/libs/checkpackage.js#L182-L200
-
-- [x] TCP destination is always localhost (cf. https://github.com/uhppoted/uhppoted-lib-node-red/issues/41)
+      - [ ] internationalisation
+      - [ ] integration tests
+      - [ ] CHANGELOG
+      - [ ] README
 
 - [ ] Decoding an invalid reply throws `AggregateError` (cf. https://github.com/uhppoted/uhppoted-lib-node-red/issues/41)
 

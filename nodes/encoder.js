@@ -544,6 +544,8 @@ module.exports = {
     date2bin(task.valid.from).copy(request, 8)
     date2bin(task.valid.to).copy(request, 12)
 
+    console.log(task.weekdays)
+
     if (task.weekdays) {
       task.weekdays.forEach((day) => {
         days.forEach((v, k) => {
@@ -846,6 +848,87 @@ module.exports = {
   },
 
   /**
+   * Encodes a set-firstcard request.
+   *
+   * @param {controller} Controller serial number.
+   * @param {door}       Door ID [1..4].
+   * @param {firstcard}  First-card configuration.
+   *
+   * @return {buffer} 64 byte NodeJS buffer with encoded add-task request.
+   */
+  SetFirstCard: function (controller, { door, firstcard } = {}) {
+    const mode = (m) => {
+      switch (m) {
+        case 'controlled':
+          return 0
+
+        case 'normally-open':
+          return 1
+
+        case 'normally-closed':
+          return 2
+
+        case 'first-card only':
+          return 3
+
+        default:
+          return -1
+      }
+    }
+
+    const weekday = (day) => {
+      if (firstcard.weekdays) {
+        const v = firstcard.weekdays.find((d) => d.toLowerCase().startsWith(day.substring(0, 2)))
+
+        return v == null ? 0 : 1
+      }
+    }
+
+    const request = Buffer.alloc(64)
+
+    request.writeUInt8(0x17, 0)
+    request.writeUInt8(0xaa, 1)
+    request.writeUInt32LE(controller, 4)
+    request.writeUInt8(door, 8)
+
+    if (firstcard.start_time && /[0-9]{1,2}:[0-9]{2}/.test(firstcard.start_time)) {
+      HHmm2bin(firstcard.start_time).copy(request, 9)
+    } else {
+      throw new Error(`invalid first-card start time (${firstcard.start_time})`)
+    }
+
+    const active_mode = mode(firstcard.active_mode)
+    if (active_mode !== 0 && active_mode !== 1 && active_mode !== 2) {
+      throw new Error(`invalid first-card active mode (${firstcard.active_mode})`)
+    } else {
+      request.writeUInt8(active_mode, 11)
+    }
+
+    if (firstcard.end_time && /[0-9]{1,2}:[0-9]{2}/.test(firstcard.end_time)) {
+      HHmm2bin(firstcard.end_time).copy(request, 12)
+    } else {
+      throw new Error(`invalid first-card end time (${firstcard.end_time})`)
+    }
+
+    const inactive_mode = mode(firstcard.inactive_mode)
+    if (inactive_mode !== 0 && inactive_mode !== 1 && inactive_mode !== 2 && inactive_mode != 3) {
+      throw new Error(`invalid first-card inactive mode (${firstcard.inactive_mode})`)
+    } else {
+      request.writeUInt8(inactive_mode, 14)
+    }
+
+    request.writeUint8(weekday('monday'), 15)
+    request.writeUint8(weekday('tuesday'), 16)
+    request.writeUint8(weekday('wednesday'), 17)
+    request.writeUint8(weekday('thursday'), 18)
+    request.writeUint8(weekday('friday'), 19)
+    request.writeUint8(weekday('saturday'), 20)
+    request.writeUint8(weekday('sunday'), 21)
+
+    return request
+  },
+
+  /**
    * Encode a restore-default-parameters request.
    *
    * @param {number} deviceId  Controller serial number
@@ -936,7 +1019,7 @@ function date2bin(date) {
  */
 function HHmm2bin(hhmm) {
   const bytes = []
-  const re = /([0-9]{2}):([0-9]{2})/
+  const re = /([0-9]{1,2}):([0-9]{2})/
   const match = hhmm.match(re)
 
   for (const m of match.slice(1)) {

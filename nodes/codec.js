@@ -40,6 +40,7 @@ const enc = new Map([
   [opcodes.SetDoorPasscodes, encoder.SetDoorPasscodes],
   [opcodes.GetAntiPassback, encoder.GetAntiPassback],
   [opcodes.SetAntiPassback, encoder.SetAntiPassback],
+  [opcodes.SetFirstCard, encoder.SetFirstCard],
   [opcodes.RestoreDefaultParameters, encoder.RestoreDefaultParameters],
 ])
 
@@ -74,6 +75,7 @@ const dec = new Map([
   [0xa4, decoder.ActivateKeypads],
   [0xa6, decoder.ClearTaskList],
   [0xa8, decoder.AddTask],
+  [0xaa, decoder.SetFirstCard],
   [0xac, decoder.RefreshTaskList],
   [0xb0, decoder.GetEvent],
   [0xb2, decoder.SetEventIndex],

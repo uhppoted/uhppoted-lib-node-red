@@ -24,14 +24,12 @@ format:
 
 build: format
 	npx eslint --fix nodes/**/*.js  
+	npx eslint --fix test/**/*.js
 
 debug: build
-#	npx eslint --fix test/**/*.js
-#	npm run test
 	node-red ./examples/debug.json
 
-test: 
-	npx eslint --fix test/**/*.js  
+test:  build
 	npm test
 	npx --yes node-red-dev validate
 

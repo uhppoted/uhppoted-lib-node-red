@@ -651,7 +651,49 @@ describe('codec', function () {
       expect(bytes).to.deep.equal(msg)
     })
 
+    it('should encode set-firstcard request', function () {
+      const controller = 405419896
+      const door = 3
+      const firstcard = {
+        start_time: '8:30',
+        end_time: '17:45',
+        active_mode: 'normally-open',
+        inactive_mode: 'first-card only',
+        weekdays: ['Mon', 'Tue', 'Thurs', 'Sun'],
+      }
+
+      // prettier-ignore
+      const expected = Buffer.from([
+        0x17, 0xaa, 0x00, 0x00, 0x78, 0x37, 0x2a, 0x18, 0x03, 0x08, 0x30, 0x01, 0x17, 0x45, 0x03, 0x01,
+        0x01, 0x00, 0x01, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    ])
+
+      const bytes = codec.encode(opcodes.SetFirstCard, controller, { door, firstcard })
+
+      expect(bytes).to.deep.equal(expected)
+    })
+
+    it('should fail with error when encoding a set-firstcard with an invalid active mokde', function () {
+      const controller = 405419896
+      const door = 3
+      const firstcard = {
+        start_time: '8:30',
+        end_time: '17:45',
+        active_mode: 'first-card only',
+        inactive_mode: 'first-card only',
+        weekdays: ['Mon', 'Tue', 'Thurs', 'Sun'],
+      }
+
+      expect(() => {
+        codec.encode(opcodes.SetFirstCard, controller, { door, firstcard })
+      }).to.throw('invalid first-card active mode (first-card only)')
+    })
+
     it('should encode restore-default-parameters request', function () {
+      const controller = 405419896
+
       // prettier-ignore
       const msg = Buffer.from([
         0x17, 0xc8, 0x00, 0x00, 0x78, 0x37, 0x2a, 0x18, 0x55, 0xaa, 0xaa, 0x55, 0x00, 0x00, 0x00, 0x00,
@@ -660,7 +702,7 @@ describe('codec', function () {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
       ])
 
-      const bytes = codec.encode(opcodes.RestoreDefaultParameters, 405419896, {})
+      const bytes = codec.encode(opcodes.RestoreDefaultParameters, controller, {})
 
       expect(bytes).to.deep.equal(msg)
     })
@@ -1070,6 +1112,7 @@ describe('codec', function () {
 
       expect(object).to.deep.equal(expected)
     })
+
     it('should decode "not found" get-card response', function () {
       const expected = {
         deviceId: 405419896,
@@ -1557,6 +1600,25 @@ describe('codec', function () {
 
       expect(object).to.deep.equal(expected)
     })
+  })
+
+  it('should decode set-firstcard response', function () {
+    // prettier-ignore
+    const msg = Buffer.from([
+      0x17, 0xaa, 0x00, 0x00, 0x78, 0x37, 0x2a, 0x18, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    ])
+
+    const expected = {
+      deviceId: 405419896,
+      ok: true,
+    }
+
+    const object = codec.decode(new Uint8Array(msg))
+
+    expect(object).to.deep.equal(expected)
   })
 
   it('should decode restore-default-parameters response', function () {

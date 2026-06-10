@@ -2606,7 +2606,8 @@
             "abf8e4f13a69d570",
             "e646c18d505fcd6f",
             "d3175c9b3379689b",
-            "e4b06e7eeeeef37b"
+            "e4b06e7eeeeef37b",
+            "89db63fb677380f4"
         ],
         "x": 605,
         "y": 100,
@@ -3354,6 +3355,97 @@
         "wires": [
             [
                 "36d242ec039f4458"
+            ]
+        ]
+    },
+    {
+        "id": "8f3617ecf738de67",
+        "type": "inject",
+        "z": "86bbf50e.a7f188",
+        "name": "test",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"controller\":{\"id\":405419896},\"door\":3,\"firstcard\":{\"start_time\":\"08:30\",\"end_time\":\"16:30\",\"active_mode\":\"normally-open\",\"inactive_mode\":\"first-card only\",\"weekdays\":[\"Monday\",\"Tuesday\",\"Friday\"]}}",
+        "payloadType": "json",
+        "x": 130,
+        "y": 1120,
+        "wires": [
+            [
+                "78470992dfd6efca"
+            ]
+        ]
+    },
+    {
+        "id": "89db63fb677380f4",
+        "type": "link out",
+        "z": "86bbf50e.a7f188",
+        "name": "set-firstcard",
+        "mode": "link",
+        "links": [
+            "4b54572ee785ad36",
+            "d874dfb06a4698ca"
+        ],
+        "x": 455,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "8446d79bf361aeb8",
+        "type": "debug",
+        "z": "86bbf50e.a7f188",
+        "name": "set-firstcard.ok",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.ok",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "4b54572ee785ad36",
+        "type": "link in",
+        "z": "86bbf50e.a7f188",
+        "name": "set-firstcard",
+        "links": [
+            "89db63fb677380f4"
+        ],
+        "x": 555,
+        "y": 1120,
+        "wires": [
+            [
+                "8446d79bf361aeb8"
+            ]
+        ]
+    },
+    {
+        "id": "78470992dfd6efca",
+        "type": "uhppoted-set-firstcard",
+        "z": "86bbf50e.a7f188",
+        "name": "set-firstcard",
+        "topic": "",
+        "config": "cf35d9904542f0af",
+        "x": 290,
+        "y": 1120,
+        "wires": [
+            [
+                "89db63fb677380f4"
             ]
         ]
     },
