@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Added
+1. `uhppoted-set-firstcard` node.
+
 
 ## [1.1.13](https://github.com/uhppoted/uhppoted-lib-node-red/releases/tag/v1.1.13) - 2026-01-27
 

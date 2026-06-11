@@ -80,10 +80,10 @@ describe('encoder', function () {
     const controller = 405419896
     const door = 3
     const firstcard = {
-      start_time: '8:30',
-      end_time: '17:45',
-      active_mode: 'normally-open',
-      inactive_mode: 'first-card only',
+      startTime: '8:30',
+      endTime: '17:45',
+      activeMode: 'normally-open',
+      inactiveMode: 'first-card only',
       weekdays: ['Mon', 'Tue', 'Thurs', 'Sun'],
     }
 

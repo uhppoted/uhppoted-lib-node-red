@@ -71,40 +71,41 @@ _Please see:_
 
 ### Nodes
 
-| Node                         | Description                                                   |
-| ---------------------------- | ------------------------------------------------------------- |
-| `get‑devices`                | Fetches a list of access controllers on the local LAN         |
-| `get‑device`                 | Retrieves the information for a single access controller      |
-| `set‑ip`                     | Sets the controller IP address, net mask and gateway address  |
-| `get‑status`                 | Retrieves the current controller status                       |
-| `get‑time`                   | Retrieves the current controller date and time                |
-| `set‑time`                   | Sets the controller date and time                             |
-| `get‑door‑control`           | Retrieves the control configuration for a controller door     |
-| `set‑door‑control`           | Sets the control configuration for a controller door          |
-| `open‑door`                  | Remotely opens a controller door                              |
-| `get‑card`                   | Retrieves a card record from a controller                     |
-| `get‑card-by-index`          | Retrieves a card record from a controller by record number    |
-| `put‑card`                   | Adds or updates a card record on a controller                 |
-| `delete‑card`                | Deletes a card record from a controller                       |
-| `delete‑all‑cards`           | Deletes all card records stored on a controller               |
-| `get-time-profile`           | Retrieve a time profile from a controller                     |
-| `set-time-profile`           | Defines a time profile on a controller                        |
-| `clear-time-profiles`        | Deletes all time profiles defined on a controller             |
-| `clear-task-list`            | Clears a controller task list                                 |
-| `add-task`                   | Adds a new task to a controller's task list                   |
-| `refresh-task-list`          | Refreshes a controller task list                              |
-| `record-special-events`      | Enables or disables door events                               | 
-| `get‑event‑index`            | Retrieves the current event index from a controller           | 
-| `set‑event‑index`            | Sets the current event index on a controller                  |
-| `get‑event`                  | Retrieves a single event from a controller                    |
-| `set-pc-control`             | Delegates access control to an offboard application           |
-| `set-interlock`              | Sets the controller door interlock mode                       |
-| `activate-keypads`           | Activates/deactivates the reader access keypads               |
-| `set-door-passcodes`         | Sets the supervisor keypad passcodes for a door               |
-| `get-antipassback`           | Retrieves the controller anti-passback mode                   |
-| `set-antipassback`           | Sets the controller anti-passback mode                        |
-| `restore-default-parameters` | Resets a controller to the manufacturer default configuration |
-| `listen`                     | Establishes a listening connection for controller events      |
+| Node                         | Description                                                     |
+| ---------------------------- | --------------------------------------------------------------- |
+| `get‑devices`                | Fetches a list of access controllers on the local LAN           |
+| `get‑device`                 | Retrieves the information for a single access controller        |
+| `set‑ip`                     | Sets the controller IP address, net mask and gateway address    |
+| `get‑status`                 | Retrieves the current controller status                         |
+| `get‑time`                   | Retrieves the current controller date and time                  |
+| `set‑time`                   | Sets the controller date and time                               |
+| `get‑door‑control`           | Retrieves the control configuration for a controller door       |
+| `set‑door‑control`           | Sets the control configuration for a controller door            |
+| `open‑door`                  | Remotely opens a controller door                                |
+| `get‑card`                   | Retrieves a card record from a controller                       |
+| `get‑card-by-index`          | Retrieves a card record from a controller by record number      |
+| `put‑card`                   | Adds or updates a card record on a controller                   |
+| `delete‑card`                | Deletes a card record from a controller                         |
+| `delete‑all‑cards`           | Deletes all card records stored on a controller                 |
+| `get-time-profile`           | Retrieve a time profile from a controller                       |
+| `set-time-profile`           | Defines a time profile on a controller                          |
+| `clear-time-profiles`        | Deletes all time profiles defined on a controller               |
+| `clear-task-list`            | Clears a controller task list                                   |
+| `add-task`                   | Adds a new task to a controller's task list                     |
+| `refresh-task-list`          | Refreshes a controller task list                                |
+| `record-special-events`      | Enables or disables door events                                 | 
+| `get‑event‑index`            | Retrieves the current event index from a controller             | 
+| `set‑event‑index`            | Sets the current event index on a controller                    |
+| `get‑event`                  | Retrieves a single event from a controller                      |
+| `set-pc-control`             | Delegates access control to an offboard application             |
+| `set-interlock`              | Sets the controller door interlock mode                         |
+| `activate-keypads`           | Activates/deactivates the reader access keypads                 |
+| `set-door-passcodes`         | Sets the supervisor keypad passcodes for a door                 |
+| `get-antipassback`           | Retrieves the controller anti-passback mode                     |
+| `set-antipassback`           | Sets the controller anti-passback mode                          |
+| `set-firstcard`              | Sets the first-card configuration for a controller managed door |
+| `restore-default-parameters` | Resets a controller to the manufacturer default configuration   |
+| `listen`                     | Establishes a listening connection for controller events        |
 
 All nodes take a message with JSON object payload as input and send a message with a JSON object payload as output.
 
@@ -182,7 +183,7 @@ The [node‑red‑contrib‑uhppoted](https://github.com/uhppoted/uhppoted-lib-n
 | [`4‑event-listener`](https://github.com/uhppoted/uhppoted-lib-node-red/blob/master/examples/basic/4-event-listener.json)   | Example _flow_ for the `listen`. `get-listener` and `set‑listener` nodes |
 | [`5‑get-status`](https://github.com/uhppoted/uhppoted-lib-node-red/blob/master/examples/basic/5-get-status.json)           | Example _flow_ for the `get‑status` node |
 | [`6‑time`](https://github.com/uhppoted/uhppoted-lib-node-red/blob/master/examples/basic/6-time.json)               | Example _flow_ for the `get‑time` and `set‑time` nodes |
-| [`7‑doors`](https://github.com/uhppoted/uhppoted-lib-node-red/blob/master/examples/basic/7-doors.json)             | Example _flow_ for the `get‑door‑control`, `set‑door‑control`, `open‑door`, `activate-keypads`, `set-interlock`, `set-door-passcodes`, `get-antipassback` and `set-antipassback` nodes |
+| [`7‑doors`](https://github.com/uhppoted/uhppoted-lib-node-red/blob/master/examples/basic/7-doors.json)             | Example _flow_ for the `get‑door‑control`, `set‑door‑control`, `open‑door`, `activate-keypads`, `set-interlock`, `set-door-passcodes`, `get-antipassback`, `set-antipassback` and `set-firstcard` nodes |
 | [`8‑cards`](https://github.com/uhppoted/uhppoted-lib-node-red/blob/master/examples/basic/8-cards.json)             | Example _flow_ for the `get‑cards`, `get‑card`, `get‑card‑by‑index`, `put‑card`, `delete‑card` and `delete‑cards` nodes |
 | [`9-time-profiles`](https://github.com/uhppoted/uhppoted-lib-node-red/blob/master/examples/basic/9-time-profiles.json) | Example _flow_ for the `get-time-profile`, `set‑time-profile` and `clear-time-profiles` nodes |
 | [`10-tasklist`](https://github.com/uhppoted/uhppoted-lib-node-red/blob/master/examples/basic/10-tasklist.json) | Example _flow_ for the `clear-task-list`, `add-task` and `refresh-task-list` nodes |

@@ -891,30 +891,30 @@ module.exports = {
     request.writeUInt32LE(controller, 4)
     request.writeUInt8(door, 8)
 
-    if (firstcard.start_time && /[0-9]{1,2}:[0-9]{2}/.test(firstcard.start_time)) {
-      HHmm2bin(firstcard.start_time).copy(request, 9)
+    if (firstcard.startTime && /[0-9]{1,2}:[0-9]{2}/.test(firstcard.startTime)) {
+      HHmm2bin(firstcard.startTime).copy(request, 9)
     } else {
-      throw new Error(`invalid first-card start time (${firstcard.start_time})`)
+      throw new Error(`invalid first-card start time (${firstcard.startTime})`)
     }
 
-    const active_mode = mode(firstcard.active_mode)
-    if (active_mode !== 0 && active_mode !== 1 && active_mode !== 2) {
-      throw new Error(`invalid first-card active mode (${firstcard.active_mode})`)
+    const activeMode = mode(firstcard.activeMode)
+    if (activeMode !== 0 && activeMode !== 1 && activeMode !== 2) {
+      throw new Error(`invalid first-card active mode (${firstcard.activeMode})`)
     } else {
-      request.writeUInt8(active_mode, 11)
+      request.writeUInt8(activeMode, 11)
     }
 
-    if (firstcard.end_time && /[0-9]{1,2}:[0-9]{2}/.test(firstcard.end_time)) {
-      HHmm2bin(firstcard.end_time).copy(request, 12)
+    if (firstcard.endTime && /[0-9]{1,2}:[0-9]{2}/.test(firstcard.endTime)) {
+      HHmm2bin(firstcard.endTime).copy(request, 12)
     } else {
-      throw new Error(`invalid first-card end time (${firstcard.end_time})`)
+      throw new Error(`invalid first-card end time (${firstcard.endTime})`)
     }
 
-    const inactive_mode = mode(firstcard.inactive_mode)
-    if (inactive_mode !== 0 && inactive_mode !== 1 && inactive_mode !== 2 && inactive_mode != 3) {
-      throw new Error(`invalid first-card inactive mode (${firstcard.inactive_mode})`)
+    const inactiveMode = mode(firstcard.inactiveMode)
+    if (inactiveMode !== 0 && inactiveMode !== 1 && inactiveMode !== 2 && inactiveMode != 3) {
+      throw new Error(`invalid first-card inactive mode (${firstcard.inactiveMode})`)
     } else {
-      request.writeUInt8(inactive_mode, 14)
+      request.writeUInt8(inactiveMode, 14)
     }
 
     request.writeUint8(weekday('monday'), 15)

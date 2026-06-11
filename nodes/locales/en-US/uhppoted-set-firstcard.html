@@ -49,13 +49,13 @@
         <dd>controller connection protocol ('udp' or 'tcp')</dd>
         <dt>door<span class="property-type">uint8</span></dt>
         <dd>Door ID [1..4] of the door to be configured with first-card mode</dd>
-        <dt>firstcard.start_time<span class="property-type">string</span></dt>
+        <dt>firstcard.startTime<span class="property-type">string</span></dt>
         <dd>Time of day from which first-card mode can be activated</d>
-        <dt>firstcard.end_time<span class="property-type">string</span></dt>
+        <dt>firstcard.endTime<span class="property-type">string</span></dt>
         <dd>Time of day after which first-card mode is deactivated</d>
-        <dt>firstcard.active_mode<span class="property-type">string</span></dt>
+        <dt>firstcard.activeMode<span class="property-type">string</span></dt>
         <dd>Door control mode after first-card swipe ('controlled', 'normally-open' or 'normally-closed'</d>
-        <dt>firstcard.inactive_mode<span class="property-type">string</span></dt>
+        <dt>firstcard.inactiveMode<span class="property-type">string</span></dt>
         <dd>Door control mode when first-card mode is deactivated ('controlled', 'normally-open', 'normally-closed' or 'first-card only'</d>
         <dt>firstcard.weekdays<span class="property-type">array of string</span></dt>
         <dd>List of weekdays on which the first-card mode can be activated</d>
@@ -66,10 +66,10 @@
     "deviceId": 405419896,
     "door": 3,
     "firstcard": {
-        "start_time": "08:30",
-        "end_time": "16:45",
-        "active_mode": "normally-open",
-        "inactive_mode": "first-card only",
+        "startTime": "08:30",
+        "endTime": "16:45",
+        "activeMode": "normally-open",
+        "inactiveMode": "first-card only",
         "weekdays": "Monday,Wednesday,Friday"
     }
   }</pre>
@@ -82,10 +82,10 @@
     },
     "door": 3,
     "firstcard": {
-        "start_time": "08:30",
-        "end_time": "16:45",
-        "active_mode": "normally-open",
-        "inactive_mode": "first-card only",
+        "startTime": "08:30",
+        "endTime": "16:45",
+        "activeMode": "normally-open",
+        "inactiveMode": "first-card only",
         "weekdays": "Monday,Wednesday,Friday"
     }
   }</pre>

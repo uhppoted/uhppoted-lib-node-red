@@ -3377,7 +3377,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{\"controller\":{\"id\":405419896},\"door\":3,\"firstcard\":{\"start_time\":\"08:30\",\"end_time\":\"16:30\",\"active_mode\":\"normally-open\",\"inactive_mode\":\"first-card only\",\"weekdays\":[\"Monday\",\"Tuesday\",\"Friday\"]}}",
+        "payload": "{\"controller\":{\"id\":405419896},\"door\":3,\"firstcard\":{\"startTime\":\"08:30\",\"endTime\":\"16:30\",\"activeMode\":\"normally-open\",\"inactiveMode\":\"first-card only\",\"weekdays\":[\"Monday\",\"Tuesday\",\"Friday\"]}}",
         "payloadType": "json",
         "x": 130,
         "y": 1120,
