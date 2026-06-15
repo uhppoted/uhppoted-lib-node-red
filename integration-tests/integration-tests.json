@@ -2439,6 +2439,7 @@
         "name": "validate-get-devices",
         "func": "const devices = msg.payload\n\nif (devices.length == 3) {\n    node.status({ fill:'green', shape:'dot', text:'ok' })\n} else {\n    node.status({ fill:'red', shape:'dot', text:'failed'})\n}\n\nreturn msg;",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
@@ -8311,7 +8312,8 @@
         "y": 180,
         "wires": [
             [
-                "cb680b678d278c6d"
+                "cb680b678d278c6d",
+                "f344319955813781"
             ]
         ]
     },
@@ -8320,7 +8322,7 @@
         "type": "debug",
         "z": "84a8a444edd23fc3",
         "name": "event",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -8328,8 +8330,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 230,
-        "y": 180,
+        "x": 270,
+        "y": 140,
         "wires": []
     },
     {
@@ -8354,7 +8356,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 170,
-        "y": 380,
+        "y": 460,
         "wires": [
             [
                 "3b67b230bfc93a4e"
@@ -8377,10 +8379,12 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 470,
-        "y": 380,
+        "x": 510,
+        "y": 460,
         "wires": [
-            []
+            [
+                "048db3d5e9262f48"
+            ]
         ]
     },
     {
@@ -8395,8 +8399,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 310,
-        "y": 380,
+        "x": 350,
+        "y": 460,
         "wires": [
             [
                 "385049d42dc83d06"
@@ -8425,7 +8429,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 170,
-        "y": 460,
+        "y": 580,
         "wires": [
             [
                 "fdc257a445eff520"
@@ -8448,10 +8452,12 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 470,
-        "y": 460,
+        "x": 510,
+        "y": 580,
         "wires": [
-            []
+            [
+                "5709ae058670322d"
+            ]
         ]
     },
     {
@@ -8464,8 +8470,8 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "x": 310,
-        "y": 460,
+        "x": 350,
+        "y": 580,
         "wires": [
             [
                 "2b2283fb54ba5139"
@@ -8479,7 +8485,7 @@
         "name": "v8.94 events",
         "info": "",
         "x": 130,
-        "y": 240,
+        "y": 280,
         "wires": []
     },
     {
@@ -8504,7 +8510,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 170,
-        "y": 500,
+        "y": 640,
         "wires": [
             [
                 "5709ae058670322d"
@@ -8527,8 +8533,8 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 470,
-        "y": 500,
+        "x": 510,
+        "y": 640,
         "wires": [
             []
         ]
@@ -8543,8 +8549,8 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "x": 310,
-        "y": 500,
+        "x": 350,
+        "y": 640,
         "wires": [
             [
                 "0bd143bd56318008"
@@ -8573,7 +8579,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 170,
-        "y": 420,
+        "y": 520,
         "wires": [
             [
                 "048db3d5e9262f48"
@@ -8596,10 +8602,12 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 470,
-        "y": 420,
+        "x": 510,
+        "y": 520,
         "wires": [
-            []
+            [
+                "fdc257a445eff520"
+            ]
         ]
     },
     {
@@ -8612,8 +8620,8 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "x": 310,
-        "y": 420,
+        "x": 350,
+        "y": 520,
         "wires": [
             [
                 "cc82edf23abe9bf6"
@@ -8642,7 +8650,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 150,
-        "y": 700,
+        "y": 880,
         "wires": [
             [
                 "500bc1f2f4af7caa"
@@ -8666,7 +8674,7 @@
         "senderr": false,
         "headers": [],
         "x": 450,
-        "y": 700,
+        "y": 880,
         "wires": [
             []
         ]
@@ -8682,7 +8690,7 @@
         "initialize": "",
         "finalize": "",
         "x": 290,
-        "y": 700,
+        "y": 880,
         "wires": [
             [
                 "ac52a210e858c98f"
@@ -8711,7 +8719,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 150,
-        "y": 780,
+        "y": 960,
         "wires": [
             [
                 "b0e6397e4d3f0b0e"
@@ -8735,7 +8743,7 @@
         "senderr": false,
         "headers": [],
         "x": 450,
-        "y": 780,
+        "y": 960,
         "wires": [
             []
         ]
@@ -8751,7 +8759,7 @@
         "initialize": "",
         "finalize": "",
         "x": 290,
-        "y": 780,
+        "y": 960,
         "wires": [
             [
                 "b40d41262ad6f7ed"
@@ -8765,7 +8773,7 @@
         "name": "v6.62 events",
         "info": "",
         "x": 130,
-        "y": 560,
+        "y": 740,
         "wires": []
     },
     {
@@ -8790,7 +8798,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 150,
-        "y": 820,
+        "y": 1000,
         "wires": [
             [
                 "d60785373d21ae6d"
@@ -8814,7 +8822,7 @@
         "senderr": false,
         "headers": [],
         "x": 450,
-        "y": 820,
+        "y": 1000,
         "wires": [
             []
         ]
@@ -8830,7 +8838,7 @@
         "initialize": "",
         "finalize": "",
         "x": 290,
-        "y": 820,
+        "y": 1000,
         "wires": [
             [
                 "f12f81ef05618867"
@@ -8859,7 +8867,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 150,
-        "y": 740,
+        "y": 920,
         "wires": [
             [
                 "3105a7e77837cf99"
@@ -8883,7 +8891,7 @@
         "senderr": false,
         "headers": [],
         "x": 450,
-        "y": 740,
+        "y": 920,
         "wires": [
             []
         ]
@@ -8899,7 +8907,7 @@
         "initialize": "",
         "finalize": "",
         "x": 290,
-        "y": 740,
+        "y": 920,
         "wires": [
             [
                 "d41125b762dd76f6"
@@ -8917,56 +8925,14 @@
         "wires": []
     },
     {
-        "id": "8302f2a8d3fc7021",
-        "type": "inject",
-        "z": "84a8a444edd23fc3",
-        "name": "405419896",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"deviceId\":405419896,\"address\":\"172.17.0.3\",\"port\":60001}",
-        "payloadType": "json",
-        "x": 160,
-        "y": 280,
-        "wires": [
-            [
-                "d1210425dbcad160"
-            ]
-        ]
-    },
-    {
-        "id": "d1210425dbcad160",
-        "type": "uhppoted-set-listener",
-        "z": "84a8a444edd23fc3",
-        "name": "",
-        "topic": "",
-        "config": "cbd92359.dbf19",
-        "x": 330,
-        "y": 280,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "72059d8e1c153c55",
         "type": "uhppoted-record-special-events",
         "z": "84a8a444edd23fc3",
         "name": "",
         "topic": "",
         "config": "cbd92359.dbf19",
-        "x": 360,
-        "y": 320,
+        "x": 520,
+        "y": 360,
         "wires": [
             []
         ]
@@ -8990,10 +8956,10 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{ \"deviceId\": 405419896, \"enable\":true }",
+        "payload": "{\"deviceId\":405419896,\"enable\":true}",
         "payloadType": "json",
         "x": 160,
-        "y": 320,
+        "y": 360,
         "wires": [
             [
                 "72059d8e1c153c55"
@@ -9019,13 +8985,13 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{\"deviceId\":201020304,\"address\":\"172.17.0.3\",\"port\":60001}",
+        "payload": "{\"deviceId\":201020304,\"address\":\"127.0.0.1\",\"port\":60001}",
         "payloadType": "json",
         "x": 160,
-        "y": 600,
+        "y": 780,
         "wires": [
             [
-                "016e3cefaaaf6ba1"
+                "cfc6588de0fceb83"
             ]
         ]
     },
@@ -9036,8 +9002,8 @@
         "name": "",
         "topic": "",
         "config": "cbd92359.dbf19",
-        "x": 330,
-        "y": 600,
+        "x": 490,
+        "y": 780,
         "wires": [
             []
         ]
@@ -9049,8 +9015,8 @@
         "name": "",
         "topic": "",
         "config": "cbd92359.dbf19",
-        "x": 360,
-        "y": 640,
+        "x": 520,
+        "y": 820,
         "wires": [
             []
         ]
@@ -9074,10 +9040,10 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{ \"deviceId\": 201020304, \"enable\":true }",
+        "payload": "{\"deviceId\":201020304,\"enable\":true}",
         "payloadType": "json",
         "x": 160,
-        "y": 640,
+        "y": 820,
         "wires": [
             [
                 "fe57b04a3a9c1259"
@@ -9090,15 +9056,7 @@
         "z": "84a8a444edd23fc3",
         "name": "status",
         "scope": [
-            "467a54f676fb4c5c",
-            "f394a8d28e0216f3",
-            "70274fd9fd621f9b",
-            "60bd8aaf1862fc8a",
-            "738a22e356c78d09",
-            "d564ee8f38538219",
-            "f94772c1c2fc48e3",
-            "439855d8aaeb0e73",
-            "7d8c9a1f534ff96f"
+            "27ee46c8803fda62"
         ],
         "x": 470,
         "y": 60,
@@ -9149,6 +9107,232 @@
         ],
         "x": 1325,
         "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "42e89c1d384ec0fa",
+        "type": "function",
+        "z": "84a8a444edd23fc3",
+        "name": "address",
+        "func": "const interfaces = os.networkInterfaces()\n\nloop:\nfor (const v in interfaces) {\n    for (const interface of interfaces[v]) {\n        if (interface.family === 'IPv4' && !interface.internal) {\n            msg.payload.address = interface.address\n            break loop\n        }\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "os",
+                "module": "os"
+            }
+        ],
+        "x": 320,
+        "y": 320,
+        "wires": [
+            [
+                "7ca3590207ba9e44"
+            ]
+        ]
+    },
+    {
+        "id": "c90144c6c9a63109",
+        "type": "inject",
+        "z": "84a8a444edd23fc3",
+        "name": "405419896",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"deviceId\":405419896,\"address\":\"127.0.0.1\",\"port\":60001}",
+        "payloadType": "json",
+        "x": 160,
+        "y": 320,
+        "wires": [
+            [
+                "42e89c1d384ec0fa"
+            ]
+        ]
+    },
+    {
+        "id": "7ca3590207ba9e44",
+        "type": "uhppoted-set-listener",
+        "z": "84a8a444edd23fc3",
+        "name": "",
+        "topic": "",
+        "config": "cbd92359.dbf19",
+        "x": 490,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cfc6588de0fceb83",
+        "type": "function",
+        "z": "84a8a444edd23fc3",
+        "name": "address",
+        "func": "const interfaces = os.networkInterfaces()\n\nloop:\nfor (const v in interfaces) {\n    for (const interface of interfaces[v]) {\n        if (interface.family === 'IPv4' && !interface.internal) {\n            msg.payload.address = interface.address\n            break loop\n        }\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "os",
+                "module": "os"
+            }
+        ],
+        "x": 320,
+        "y": 780,
+        "wires": [
+            [
+                "016e3cefaaaf6ba1"
+            ]
+        ]
+    },
+    {
+        "id": "f344319955813781",
+        "type": "function",
+        "z": "84a8a444edd23fc3",
+        "name": "events",
+        "func": "let events = context.get('events') || [];\n\nif (msg.topic === \"clear\") {\n    events = []\n} else {\n    events.push(msg.payload)\n    if (events.length > 32) {\n        events.shift()\n    }\n}\n\ncontext.set('events', events);\n\nmsg.payload = {\n    events: events,\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 180,
+        "wires": [
+            [
+                "573ccfdbe83ae965",
+                "27ee46c8803fda62"
+            ]
+        ]
+    },
+    {
+        "id": "573ccfdbe83ae965",
+        "type": "debug",
+        "z": "84a8a444edd23fc3",
+        "name": "debug",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 450,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "e4522f10f598cb7b",
+        "type": "inject",
+        "z": "84a8a444edd23fc3",
+        "name": "clear",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "clear",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 420,
+        "wires": [
+            [
+                "1e393ae8e5854c84",
+                "3b67b230bfc93a4e"
+            ]
+        ]
+    },
+    {
+        "id": "1e393ae8e5854c84",
+        "type": "link out",
+        "z": "84a8a444edd23fc3",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [
+            "f65795550473dd7a"
+        ],
+        "x": 275,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "f65795550473dd7a",
+        "type": "link in",
+        "z": "84a8a444edd23fc3",
+        "name": "clear",
+        "links": [
+            "1e393ae8e5854c84"
+        ],
+        "x": 145,
+        "y": 220,
+        "wires": [
+            [
+                "f344319955813781"
+            ]
+        ]
+    },
+    {
+        "id": "27ee46c8803fda62",
+        "type": "function",
+        "z": "84a8a444edd23fc3",
+        "name": "validate events",
+        "func": "const EVENTS = context.get('EVENTS') || []\nconst events = msg.payload.events\n\nlet ok = true\nif (events.length !== EVENTS.length) {\n    ok = false\n} else {\n    events.forEach((event, ix) => {\n        const expected = EVENTS[ix]\n\n        if (event.deviceId !== expected.deviceId) {\n            ok = false\n        }\n\n        if (event.state.event.type.code !== expected.event.type.code) {\n            ok = false\n        }\n\n        if (event.state.event.type.event !== expected.event.type.event) {\n            ok = false\n        }\n\n        if (event.state.event.granted !== expected.event.granted) {\n            ok = false\n        }\n\n        if (event.state.event.door !== expected.event.door) {\n            ok = false\n        }\n\n        if (event.state.event.direction.code !== expected.event.direction.code) {\n            ok = false\n        }\n\n        if (event.state.event.direction.direction !== expected.event.direction.direction) {\n            ok = false\n        }\n\n        if (event.state.event.card !== expected.event.card) {\n            ok = false\n        }\n\n        if (event.state.event.reason.code !== expected.event.reason.code) {\n            ok = false\n        }\n\n        if (event.state.event.reason.reason !== expected.event.reason.reason) {\n            ok = false\n        }\n    })\n}\n\n\nif (ok) {\n    node.status({ fill: 'green', shape: 'dot', text: 'ok' })\n} else {\n    node.status({ fill: 'red', shape: 'dot', text: 'failed' })\n}\n\nmsg.payload = {\n    ok: ok,\n    events: events\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "const EVENTS = Object.freeze([\n    {\n        // card event\n        deviceId: 405419896,\n        event: {\n            type: {\n                code: 1,\n                event: 'card swipe'\n            },\n            granted: false,\n            door: 1,\n            direction: {\n                code: 1,\n                direction: 'in'\n            },\n            card: 65538,\n            reason: {\n                code: 18,\n                reason: 'access denied'\n            }\n        }\n    },\n\n    // door pushbutton event\n    {\n        deviceId: 405419896,\n        event: {\n            type: {\n                code: 2,\n                event: 'door'\n            },\n            granted: true,\n            door: 1,\n            direction: {\n                code: 1,\n                direction: 'in'\n            },\n            card: 1,\n            reason: {\n                code: 20,\n                reason: 'pushbutton ok'\n            }\n        }\n    },\n\n    // door open event\n    {\n        deviceId: 405419896,\n        event: {\n            type: {\n                code: 2,\n                event: 'door'\n            },\n            granted: true,\n            door: 1,\n            direction: {\n                code: 1,\n                direction: 'in'\n            },\n            card: 8,\n            reason: {\n                code: 23,\n                reason: 'door opened'\n            }\n        }\n    },\n\n    // door close event\n    {\n        deviceId: 405419896,\n        event: {\n            type: {\n                code: 2,\n                event: 'door'\n            },\n            granted: true,\n            door: 1,\n            direction: {\n                code: 1,\n                direction: 'in'\n            },\n            card: 9,\n            reason: {\n                code: 24,\n                reason: 'door closed'\n            }\n        }\n    }\n])\n\ncontext.set('EVENTS', EVENTS);\n",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 180,
+        "wires": [
+            [
+                "790cd182225c6a23"
+            ]
+        ]
+    },
+    {
+        "id": "790cd182225c6a23",
+        "type": "debug",
+        "z": "84a8a444edd23fc3",
+        "name": "debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 180,
         "wires": []
     }
 ]

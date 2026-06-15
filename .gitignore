@@ -2,6 +2,7 @@
 .npmrc
 *.tgz
 runtime
+gemini
 release-notes.md
 
 # dependencies
