@@ -8312,54 +8312,7 @@
         "y": 180,
         "wires": [
             [
-                "cb680b678d278c6d",
                 "f344319955813781"
-            ]
-        ]
-    },
-    {
-        "id": "cb680b678d278c6d",
-        "type": "debug",
-        "z": "84a8a444edd23fc3",
-        "name": "event",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 270,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "641b1458192e3108",
-        "type": "inject",
-        "z": "84a8a444edd23fc3",
-        "name": "swipe",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 170,
-        "y": 460,
-        "wires": [
-            [
-                "3b67b230bfc93a4e"
             ]
         ]
     },
@@ -8379,7 +8332,7 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 510,
+        "x": 470,
         "y": 460,
         "wires": [
             [
@@ -8399,40 +8352,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 350,
+        "x": 290,
         "y": 460,
         "wires": [
             [
                 "385049d42dc83d06"
-            ]
-        ]
-    },
-    {
-        "id": "5ece7983b8580eda",
-        "type": "inject",
-        "z": "84a8a444edd23fc3",
-        "name": "open",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 170,
-        "y": 580,
-        "wires": [
-            [
-                "fdc257a445eff520"
             ]
         ]
     },
@@ -8452,8 +8376,8 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 510,
-        "y": 580,
+        "x": 470,
+        "y": 540,
         "wires": [
             [
                 "5709ae058670322d"
@@ -8470,8 +8394,8 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "x": 350,
-        "y": 580,
+        "x": 290,
+        "y": 540,
         "wires": [
             [
                 "2b2283fb54ba5139"
@@ -8489,35 +8413,6 @@
         "wires": []
     },
     {
-        "id": "0146498e2b1107b5",
-        "type": "inject",
-        "z": "84a8a444edd23fc3",
-        "name": "close",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 170,
-        "y": 640,
-        "wires": [
-            [
-                "5709ae058670322d"
-            ]
-        ]
-    },
-    {
         "id": "0bd143bd56318008",
         "type": "http request",
         "z": "84a8a444edd23fc3",
@@ -8533,10 +8428,12 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 510,
-        "y": 640,
+        "x": 470,
+        "y": 580,
         "wires": [
-            []
+            [
+                "587e8000bf6b57ed"
+            ]
         ]
     },
     {
@@ -8549,40 +8446,11 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "x": 350,
-        "y": 640,
+        "x": 290,
+        "y": 580,
         "wires": [
             [
                 "0bd143bd56318008"
-            ]
-        ]
-    },
-    {
-        "id": "aedec67f5f7a2bd4",
-        "type": "inject",
-        "z": "84a8a444edd23fc3",
-        "name": "button",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 170,
-        "y": 520,
-        "wires": [
-            [
-                "048db3d5e9262f48"
             ]
         ]
     },
@@ -8602,8 +8470,8 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 510,
-        "y": 520,
+        "x": 470,
+        "y": 500,
         "wires": [
             [
                 "fdc257a445eff520"
@@ -8617,43 +8485,16 @@
         "name": "button",
         "func": "msg.headers = {}\nmsg.method = \"POST\"\nmsg.headers[\"content-type\"] = \"application/json\"\nmsg.payload = { \"action\":\"button\", \"duration\":5 }\n\nreturn msg",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "x": 350,
-        "y": 520,
+        "libs": [],
+        "x": 290,
+        "y": 500,
         "wires": [
             [
                 "cc82edf23abe9bf6"
-            ]
-        ]
-    },
-    {
-        "id": "8a979b38b6b4e8a3",
-        "type": "inject",
-        "z": "84a8a444edd23fc3",
-        "name": "swipe",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 150,
-        "y": 880,
-        "wires": [
-            [
-                "500bc1f2f4af7caa"
             ]
         ]
     },
@@ -8673,10 +8514,12 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 450,
-        "y": 880,
+        "x": 470,
+        "y": 840,
         "wires": [
-            []
+            [
+                "3105a7e77837cf99"
+            ]
         ]
     },
     {
@@ -8686,43 +8529,16 @@
         "name": "swipe",
         "func": "msg.headers = {}\nmsg.method = \"POST\"\nmsg.headers[\"content-type\"] = \"application/json\"\nmsg.payload = { \"door\":1, \"card-number\":65538 }\n\nreturn msg",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
+        "libs": [],
         "x": 290,
-        "y": 880,
+        "y": 840,
         "wires": [
             [
                 "ac52a210e858c98f"
-            ]
-        ]
-    },
-    {
-        "id": "893b30aad1d10e09",
-        "type": "inject",
-        "z": "84a8a444edd23fc3",
-        "name": "open",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 150,
-        "y": 960,
-        "wires": [
-            [
-                "b0e6397e4d3f0b0e"
             ]
         ]
     },
@@ -8742,10 +8558,12 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 450,
-        "y": 960,
+        "x": 470,
+        "y": 920,
         "wires": [
-            []
+            [
+                "d60785373d21ae6d"
+            ]
         ]
     },
     {
@@ -8759,7 +8577,7 @@
         "initialize": "",
         "finalize": "",
         "x": 290,
-        "y": 960,
+        "y": 920,
         "wires": [
             [
                 "b40d41262ad6f7ed"
@@ -8773,37 +8591,8 @@
         "name": "v6.62 events",
         "info": "",
         "x": 130,
-        "y": 740,
+        "y": 660,
         "wires": []
-    },
-    {
-        "id": "b5586829a28bdb56",
-        "type": "inject",
-        "z": "84a8a444edd23fc3",
-        "name": "close",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 150,
-        "y": 1000,
-        "wires": [
-            [
-                "d60785373d21ae6d"
-            ]
-        ]
     },
     {
         "id": "f12f81ef05618867",
@@ -8821,10 +8610,12 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 450,
-        "y": 1000,
+        "x": 470,
+        "y": 960,
         "wires": [
-            []
+            [
+                "8c5bf3087f538ef5"
+            ]
         ]
     },
     {
@@ -8838,39 +8629,10 @@
         "initialize": "",
         "finalize": "",
         "x": 290,
-        "y": 1000,
+        "y": 960,
         "wires": [
             [
                 "f12f81ef05618867"
-            ]
-        ]
-    },
-    {
-        "id": "e5fc59ba0c1fb433",
-        "type": "inject",
-        "z": "84a8a444edd23fc3",
-        "name": "button",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 150,
-        "y": 920,
-        "wires": [
-            [
-                "3105a7e77837cf99"
             ]
         ]
     },
@@ -8890,10 +8652,12 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 450,
-        "y": 920,
+        "x": 470,
+        "y": 880,
         "wires": [
-            []
+            [
+                "b0e6397e4d3f0b0e"
+            ]
         ]
     },
     {
@@ -8903,11 +8667,13 @@
         "name": "button",
         "func": "msg.headers = {}\nmsg.method = \"POST\"\nmsg.headers[\"content-type\"] = \"application/json\"\nmsg.payload = { \"action\":\"button\", \"duration\":5 }\n\nreturn msg",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
+        "libs": [],
         "x": 290,
-        "y": 920,
+        "y": 880,
         "wires": [
             [
                 "d41125b762dd76f6"
@@ -8925,138 +8691,13 @@
         "wires": []
     },
     {
-        "id": "72059d8e1c153c55",
-        "type": "uhppoted-record-special-events",
-        "z": "84a8a444edd23fc3",
-        "name": "",
-        "topic": "",
-        "config": "cbd92359.dbf19",
-        "x": 520,
-        "y": 360,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "5287937cf9f2a1eb",
-        "type": "inject",
-        "z": "84a8a444edd23fc3",
-        "name": "405419896",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"deviceId\":405419896,\"enable\":true}",
-        "payloadType": "json",
-        "x": 160,
-        "y": 360,
-        "wires": [
-            [
-                "72059d8e1c153c55"
-            ]
-        ]
-    },
-    {
-        "id": "1915ca8976d58680",
-        "type": "inject",
-        "z": "84a8a444edd23fc3",
-        "name": "201020304",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"deviceId\":201020304,\"address\":\"127.0.0.1\",\"port\":60001}",
-        "payloadType": "json",
-        "x": 160,
-        "y": 780,
-        "wires": [
-            [
-                "cfc6588de0fceb83"
-            ]
-        ]
-    },
-    {
-        "id": "016e3cefaaaf6ba1",
-        "type": "uhppoted-set-listener",
-        "z": "84a8a444edd23fc3",
-        "name": "",
-        "topic": "",
-        "config": "cbd92359.dbf19",
-        "x": 490,
-        "y": 780,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "fe57b04a3a9c1259",
-        "type": "uhppoted-record-special-events",
-        "z": "84a8a444edd23fc3",
-        "name": "",
-        "topic": "",
-        "config": "cbd92359.dbf19",
-        "x": 520,
-        "y": 820,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "698f92434a49e19b",
-        "type": "inject",
-        "z": "84a8a444edd23fc3",
-        "name": "201020304",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"deviceId\":201020304,\"enable\":true}",
-        "payloadType": "json",
-        "x": 160,
-        "y": 820,
-        "wires": [
-            [
-                "fe57b04a3a9c1259"
-            ]
-        ]
-    },
-    {
         "id": "74f9a9de23d56d39",
         "type": "status",
         "z": "84a8a444edd23fc3",
         "name": "status",
         "scope": [
-            "27ee46c8803fda62"
+            "15c1d2c46d15e6da",
+            "cce0ee3048fcea72"
         ],
         "x": 470,
         "y": 60,
@@ -9079,7 +8720,7 @@
         "targetType": "full",
         "statusVal": "payload",
         "statusType": "auto",
-        "x": 630,
+        "x": 610,
         "y": 60,
         "wires": []
     },
@@ -9110,103 +8751,11 @@
         "wires": []
     },
     {
-        "id": "42e89c1d384ec0fa",
-        "type": "function",
-        "z": "84a8a444edd23fc3",
-        "name": "address",
-        "func": "const interfaces = os.networkInterfaces()\n\nloop:\nfor (const v in interfaces) {\n    for (const interface of interfaces[v]) {\n        if (interface.family === 'IPv4' && !interface.internal) {\n            msg.payload.address = interface.address\n            break loop\n        }\n    }\n}\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [
-            {
-                "var": "os",
-                "module": "os"
-            }
-        ],
-        "x": 320,
-        "y": 320,
-        "wires": [
-            [
-                "7ca3590207ba9e44"
-            ]
-        ]
-    },
-    {
-        "id": "c90144c6c9a63109",
-        "type": "inject",
-        "z": "84a8a444edd23fc3",
-        "name": "405419896",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"deviceId\":405419896,\"address\":\"127.0.0.1\",\"port\":60001}",
-        "payloadType": "json",
-        "x": 160,
-        "y": 320,
-        "wires": [
-            [
-                "42e89c1d384ec0fa"
-            ]
-        ]
-    },
-    {
-        "id": "7ca3590207ba9e44",
-        "type": "uhppoted-set-listener",
-        "z": "84a8a444edd23fc3",
-        "name": "",
-        "topic": "",
-        "config": "cbd92359.dbf19",
-        "x": 490,
-        "y": 320,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "cfc6588de0fceb83",
-        "type": "function",
-        "z": "84a8a444edd23fc3",
-        "name": "address",
-        "func": "const interfaces = os.networkInterfaces()\n\nloop:\nfor (const v in interfaces) {\n    for (const interface of interfaces[v]) {\n        if (interface.family === 'IPv4' && !interface.internal) {\n            msg.payload.address = interface.address\n            break loop\n        }\n    }\n}\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [
-            {
-                "var": "os",
-                "module": "os"
-            }
-        ],
-        "x": 320,
-        "y": 780,
-        "wires": [
-            [
-                "016e3cefaaaf6ba1"
-            ]
-        ]
-    },
-    {
         "id": "f344319955813781",
         "type": "function",
         "z": "84a8a444edd23fc3",
         "name": "events",
-        "func": "let events = context.get('events') || [];\n\nif (msg.topic === \"clear\") {\n    events = []\n} else {\n    events.push(msg.payload)\n    if (events.length > 32) {\n        events.shift()\n    }\n}\n\ncontext.set('events', events);\n\nmsg.payload = {\n    events: events,\n}\n\nreturn msg;",
+        "func": "let events = flow.get('events') || [];\n\nevents.push(msg.payload)\nif (events.length > 32) {\n    events.shift()\n}\n\nflow.set('events', events);\n\nmsg.payload = {\n    events: events,\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -9217,8 +8766,7 @@
         "y": 180,
         "wires": [
             [
-                "573ccfdbe83ae965",
-                "27ee46c8803fda62"
+                "573ccfdbe83ae965"
             ]
         ]
     },
@@ -9235,15 +8783,15 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 450,
-        "y": 140,
+        "x": 410,
+        "y": 180,
         "wires": []
     },
     {
         "id": "e4522f10f598cb7b",
         "type": "inject",
         "z": "84a8a444edd23fc3",
-        "name": "clear",
+        "name": "all",
         "props": [
             {
                 "p": "payload"
@@ -9260,79 +8808,337 @@
         "topic": "clear",
         "payload": "",
         "payloadType": "date",
-        "x": 170,
-        "y": 420,
+        "x": 150,
+        "y": 320,
         "wires": [
             [
-                "1e393ae8e5854c84",
-                "3b67b230bfc93a4e"
+                "1640ec134a7f604d"
             ]
         ]
     },
     {
-        "id": "1e393ae8e5854c84",
-        "type": "link out",
+        "id": "4db2f00175ee7556",
+        "type": "inject",
         "z": "84a8a444edd23fc3",
-        "name": "link out 1",
-        "mode": "link",
-        "links": [
-            "f65795550473dd7a"
+        "name": "all",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
         ],
-        "x": 275,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "f65795550473dd7a",
-        "type": "link in",
-        "z": "84a8a444edd23fc3",
-        "name": "clear",
-        "links": [
-            "1e393ae8e5854c84"
-        ],
-        "x": 145,
-        "y": 220,
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "clear",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 700,
         "wires": [
             [
-                "f344319955813781"
+                "47f0646c6c1b8a75"
             ]
         ]
     },
     {
-        "id": "27ee46c8803fda62",
+        "id": "293372536ce1e983",
+        "type": "uhppoted-set-listener",
+        "z": "84a8a444edd23fc3",
+        "name": "",
+        "topic": "",
+        "config": "cbd92359.dbf19",
+        "x": 470,
+        "y": 740,
+        "wires": [
+            [
+                "d8bd09b785034c3a"
+            ]
+        ]
+    },
+    {
+        "id": "2293241497f50512",
+        "type": "function",
+        "z": "84a8a444edd23fc3",
+        "name": "201020304",
+        "func": "const interfaces = os.networkInterfaces()\n\nmsg.payload = {\n    \"deviceId\": 201020304,\n    \"address\": \"127.0.0.1\",\n    \"port\": 60001,\n    \"interval\": 30\n}\n\nloop:\nfor (const v in interfaces) {\n    for (const interface of interfaces[v]) {\n        if (interface.family === 'IPv4' && !interface.internal) {\n            msg.payload.address = interface.address\n            break loop\n        }\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "os",
+                "module": "os"
+            }
+        ],
+        "x": 310,
+        "y": 740,
+        "wires": [
+            [
+                "293372536ce1e983"
+            ]
+        ]
+    },
+    {
+        "id": "d8bd09b785034c3a",
+        "type": "function",
+        "z": "84a8a444edd23fc3",
+        "name": "201020304",
+        "func": "msg.payload = {\n    \"deviceId\": 201020304,\n    \"enable\": true\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "os",
+                "module": "os"
+            }
+        ],
+        "x": 310,
+        "y": 780,
+        "wires": [
+            [
+                "8dd8a3d9aad80128"
+            ]
+        ]
+    },
+    {
+        "id": "8dd8a3d9aad80128",
+        "type": "uhppoted-record-special-events",
+        "z": "84a8a444edd23fc3",
+        "name": "",
+        "topic": "",
+        "config": "cbd92359.dbf19",
+        "x": 500,
+        "y": 780,
+        "wires": [
+            [
+                "500bc1f2f4af7caa"
+            ]
+        ]
+    },
+    {
+        "id": "15c1d2c46d15e6da",
         "type": "function",
         "z": "84a8a444edd23fc3",
         "name": "validate events",
-        "func": "const EVENTS = context.get('EVENTS') || []\nconst events = msg.payload.events\n\nlet ok = true\nif (events.length !== EVENTS.length) {\n    ok = false\n} else {\n    events.forEach((event, ix) => {\n        const expected = EVENTS[ix]\n\n        if (event.deviceId !== expected.deviceId) {\n            ok = false\n        }\n\n        if (event.state.event.type.code !== expected.event.type.code) {\n            ok = false\n        }\n\n        if (event.state.event.type.event !== expected.event.type.event) {\n            ok = false\n        }\n\n        if (event.state.event.granted !== expected.event.granted) {\n            ok = false\n        }\n\n        if (event.state.event.door !== expected.event.door) {\n            ok = false\n        }\n\n        if (event.state.event.direction.code !== expected.event.direction.code) {\n            ok = false\n        }\n\n        if (event.state.event.direction.direction !== expected.event.direction.direction) {\n            ok = false\n        }\n\n        if (event.state.event.card !== expected.event.card) {\n            ok = false\n        }\n\n        if (event.state.event.reason.code !== expected.event.reason.code) {\n            ok = false\n        }\n\n        if (event.state.event.reason.reason !== expected.event.reason.reason) {\n            ok = false\n        }\n    })\n}\n\n\nif (ok) {\n    node.status({ fill: 'green', shape: 'dot', text: 'ok' })\n} else {\n    node.status({ fill: 'red', shape: 'dot', text: 'failed' })\n}\n\nmsg.payload = {\n    ok: ok,\n    events: events\n}\n\nreturn msg;",
+        "func": "const EVENTS = context.get('EVENTS') || []\nconst events = flow.get('events')\n\nlet ok = true\nif (events.length !== EVENTS.length) {\n    ok = false\n} else {\n    events.forEach((event, ix) => {\n        const expected = EVENTS[ix]\n\n        if (event.deviceId !== expected.deviceId) {\n            ok = false\n        }\n\n        if (event.state.event.type.code !== expected.event.type.code) {\n            ok = false\n        }\n\n        if (event.state.event.type.event !== expected.event.type.event) {\n            ok = false\n        }\n\n        if (event.state.event.granted !== expected.event.granted) {\n            ok = false\n        }\n\n        if (event.state.event.door !== expected.event.door) {\n            ok = false\n        }\n\n        if (event.state.event.direction.code !== expected.event.direction.code) {\n            ok = false\n        }\n\n        if (event.state.event.direction.direction !== expected.event.direction.direction) {\n            ok = false\n        }\n\n        if (event.state.event.card !== expected.event.card) {\n            ok = false\n        }\n\n        if (event.state.event.reason.code !== expected.event.reason.code) {\n            ok = false\n        }\n\n        if (event.state.event.reason.reason !== expected.event.reason.reason) {\n            ok = false\n        }\n    })\n}\n\nif (ok) {\n    node.status({ fill: 'green', shape: 'dot', text: 'ok' })\n} else {\n    node.status({ fill: 'red', shape: 'dot', text: 'failed' })\n}\n\nmsg.payload = {\n    ok: ok,\n    events: events\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "const EVENTS = Object.freeze([\n    {\n        // card event\n        deviceId: 201020304,\n        event: {\n            type: {\n                code: 1,\n                event: 'card swipe'\n            },\n            granted: false,\n            door: 1,\n            direction: {\n                code: 1,\n                direction: 'in'\n            },\n            card: 65538,\n            reason: {\n                code: 18,\n                reason: 'access denied'\n            }\n        }\n    },\n\n    // door pushbutton event\n    {\n        deviceId: 201020304,\n        event: {\n            type: {\n                code: 2,\n                event: 'door'\n            },\n            granted: true,\n            door: 1,\n            direction: {\n                code: 1,\n                direction: 'in'\n            },\n            card: 1,\n            reason: {\n                code: 20,\n                reason: 'pushbutton ok'\n            }\n        }\n    },\n\n    // door open event\n    {\n        deviceId: 201020304,\n        event: {\n            type: {\n                code: 2,\n                event: 'door'\n            },\n            granted: true,\n            door: 1,\n            direction: {\n                code: 1,\n                direction: 'in'\n            },\n            card: 8,\n            reason: {\n                code: 23,\n                reason: 'door opened'\n            }\n        }\n    },\n\n    // door close event\n    {\n        deviceId: 201020304,\n        event: {\n            type: {\n                code: 2,\n                event: 'door'\n            },\n            granted: true,\n            door: 1,\n            direction: {\n                code: 1,\n                direction: 'in'\n            },\n            card: 9,\n            reason: {\n                code: 24,\n                reason: 'door closed'\n            }\n        }\n    }\n])\n\ncontext.set('EVENTS', EVENTS);\n",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8c5bf3087f538ef5",
+        "type": "delay",
+        "z": "84a8a444edd23fc3",
+        "name": "(wait)",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 650,
+        "y": 960,
+        "wires": [
+            [
+                "15c1d2c46d15e6da"
+            ]
+        ]
+    },
+    {
+        "id": "587e8000bf6b57ed",
+        "type": "delay",
+        "z": "84a8a444edd23fc3",
+        "name": "(wait)",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 650,
+        "y": 580,
+        "wires": [
+            [
+                "cce0ee3048fcea72"
+            ]
+        ]
+    },
+    {
+        "id": "cce0ee3048fcea72",
+        "type": "function",
+        "z": "84a8a444edd23fc3",
+        "name": "validate events",
+        "func": "const EVENTS = context.get('EVENTS') || []\nconst events = flow.get('events')\n\nlet ok = true\nif (events.length !== EVENTS.length) {\n    ok = false\n} else {\n    events.forEach((event, ix) => {\n        const expected = EVENTS[ix]\n\n        if (event.deviceId !== expected.deviceId) {\n            ok = false\n        }\n\n        if (event.state.event.type.code !== expected.event.type.code) {\n            ok = false\n        }\n\n        if (event.state.event.type.event !== expected.event.type.event) {\n            ok = false\n        }\n\n        if (event.state.event.granted !== expected.event.granted) {\n            ok = false\n        }\n\n        if (event.state.event.door !== expected.event.door) {\n            ok = false\n        }\n\n        if (event.state.event.direction.code !== expected.event.direction.code) {\n            ok = false\n        }\n\n        if (event.state.event.direction.direction !== expected.event.direction.direction) {\n            ok = false\n        }\n\n        if (event.state.event.card !== expected.event.card) {\n            ok = false\n        }\n\n        if (event.state.event.reason.code !== expected.event.reason.code) {\n            ok = false\n        }\n\n        if (event.state.event.reason.reason !== expected.event.reason.reason) {\n            ok = false\n        }\n    })\n}\n\nif (ok) {\n    node.status({ fill: 'green', shape: 'dot', text: 'ok' })\n} else {\n    node.status({ fill: 'red', shape: 'dot', text: 'failed' })\n}\n\nmsg.payload = {\n    ok: ok,\n    events: events\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "const EVENTS = Object.freeze([\n    {\n        // card event\n        deviceId: 405419896,\n        event: {\n            type: {\n                code: 1,\n                event: 'card swipe'\n            },\n            granted: false,\n            door: 1,\n            direction: {\n                code: 1,\n                direction: 'in'\n            },\n            card: 65538,\n            reason: {\n                code: 18,\n                reason: 'access denied'\n            }\n        }\n    },\n\n    // door pushbutton event\n    {\n        deviceId: 405419896,\n        event: {\n            type: {\n                code: 2,\n                event: 'door'\n            },\n            granted: true,\n            door: 1,\n            direction: {\n                code: 1,\n                direction: 'in'\n            },\n            card: 1,\n            reason: {\n                code: 20,\n                reason: 'pushbutton ok'\n            }\n        }\n    },\n\n    // door open event\n    {\n        deviceId: 405419896,\n        event: {\n            type: {\n                code: 2,\n                event: 'door'\n            },\n            granted: true,\n            door: 1,\n            direction: {\n                code: 1,\n                direction: 'in'\n            },\n            card: 8,\n            reason: {\n                code: 23,\n                reason: 'door opened'\n            }\n        }\n    },\n\n    // door close event\n    {\n        deviceId: 405419896,\n        event: {\n            type: {\n                code: 2,\n                event: 'door'\n            },\n            granted: true,\n            door: 1,\n            direction: {\n                code: 1,\n                direction: 'in'\n            },\n            card: 9,\n            reason: {\n                code: 24,\n                reason: 'door closed'\n            }\n        }\n    }\n])\n\ncontext.set('EVENTS', EVENTS);\n",
         "finalize": "",
         "libs": [],
-        "x": 480,
-        "y": 180,
+        "x": 820,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1640ec134a7f604d",
+        "type": "function",
+        "z": "84a8a444edd23fc3",
+        "name": "clear events",
+        "func": "flow.set('events', []);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "os",
+                "module": "os"
+            }
+        ],
+        "x": 310,
+        "y": 320,
         "wires": [
             [
-                "790cd182225c6a23"
+                "a7bd37bbcfad5bf8"
             ]
         ]
     },
     {
-        "id": "790cd182225c6a23",
-        "type": "debug",
+        "id": "47f0646c6c1b8a75",
+        "type": "function",
         "z": "84a8a444edd23fc3",
-        "name": "debug",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 650,
-        "y": 180,
-        "wires": []
+        "name": "clear events",
+        "func": "flow.set('events', []);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "os",
+                "module": "os"
+            }
+        ],
+        "x": 310,
+        "y": 700,
+        "wires": [
+            [
+                "2293241497f50512"
+            ]
+        ]
+    },
+    {
+        "id": "a7bd37bbcfad5bf8",
+        "type": "function",
+        "z": "84a8a444edd23fc3",
+        "name": "405419896",
+        "func": "const interfaces = os.networkInterfaces()\n\nmsg.payload = {\n    \"deviceId\": 405419896,\n    \"address\": \"127.0.0.1\",\n    \"port\": 60001,\n    \"interval\": 30\n}\n\nloop:\nfor (const v in interfaces) {\n    for (const interface of interfaces[v]) {\n        if (interface.family === 'IPv4' && !interface.internal) {\n            msg.payload.address = interface.address\n            break loop\n        }\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "os",
+                "module": "os"
+            }
+        ],
+        "x": 310,
+        "y": 360,
+        "wires": [
+            [
+                "bdc296731a29b24f"
+            ]
+        ]
+    },
+    {
+        "id": "c7dc83601e9c6cf1",
+        "type": "function",
+        "z": "84a8a444edd23fc3",
+        "name": "405419896",
+        "func": "msg.payload = {\n    \"deviceId\": 405419896,\n    \"enable\": true\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "os",
+                "module": "os"
+            }
+        ],
+        "x": 310,
+        "y": 400,
+        "wires": [
+            [
+                "3040b2216523864f"
+            ]
+        ]
+    },
+    {
+        "id": "bdc296731a29b24f",
+        "type": "uhppoted-set-listener",
+        "z": "84a8a444edd23fc3",
+        "name": "",
+        "topic": "",
+        "config": "cbd92359.dbf19",
+        "x": 470,
+        "y": 360,
+        "wires": [
+            [
+                "c7dc83601e9c6cf1"
+            ]
+        ]
+    },
+    {
+        "id": "3040b2216523864f",
+        "type": "uhppoted-record-special-events",
+        "z": "84a8a444edd23fc3",
+        "name": "",
+        "topic": "",
+        "config": "cbd92359.dbf19",
+        "x": 500,
+        "y": 400,
+        "wires": [
+            [
+                "3b67b230bfc93a4e"
+            ]
+        ]
     }
 ]

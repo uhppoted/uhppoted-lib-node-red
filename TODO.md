@@ -4,6 +4,7 @@
 
 - [ ] check the `(done())`  thing - looks like it's possibly wrong
 - [ ] rework _listen_ integration tests for docker
+- [ ] set-listener: interval is NaN
 
 - [ ] 'set-firstcard' API (cf. https://github.com/uhppoted/uhppoted/issues/82)
       - [x] `set-firstcard`
