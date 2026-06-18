@@ -654,13 +654,6 @@ describe('codec', function () {
     it('should encode set-firstcard request', function () {
       const controller = 405419896
       const door = 3
-      const firstcard = {
-        startTime: '8:30',
-        endTime: '17:45',
-        activeMode: 'normally-open',
-        inactiveMode: 'first-card only',
-        weekdays: ['Mon', 'Tue', 'Thurs', 'Sun'],
-      }
 
       // prettier-ignore
       const expected = Buffer.from([
@@ -670,7 +663,24 @@ describe('codec', function () {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     ])
 
-      const bytes = codec.encode(opcodes.SetFirstCard, controller, { door, firstcard })
+      const bytes = codec.encode(opcodes.SetFirstCard, controller, {
+        door,
+        startTime: '8:30',
+        endTime: '17:45',
+        modes: {
+          active: opcodes.NormallyOpen,
+          inactive: opcodes.FirstCardOnly,
+        },
+        weekdays: {
+          monday: true,
+          tuesday: true,
+          wednesday: false,
+          thursday: true,
+          friday: false,
+          saturday: false,
+          sunday: true,
+        },
+      })
 
       expect(bytes).to.deep.equal(expected)
     })
@@ -678,17 +688,27 @@ describe('codec', function () {
     it('should fail with error when encoding a set-firstcard with an invalid active mokde', function () {
       const controller = 405419896
       const door = 3
-      const firstcard = {
-        startTime: '8:30',
-        endTime: '17:45',
-        activeMode: 'first-card only',
-        inactiveMode: 'first-card only',
-        weekdays: ['Mon', 'Tue', 'Thurs', 'Sun'],
-      }
-
       expect(() => {
-        codec.encode(opcodes.SetFirstCard, controller, { door, firstcard })
-      }).to.throw('invalid first-card active mode (first-card only)')
+        codec.encode(opcodes.SetFirstCard, controller, {
+          door,
+
+          startTime: '8:30',
+          endTime: '17:45',
+          modes: {
+            active: opcodes.FirstCardOnly,
+            inactive: opcodes.FirstCardOnly,
+          },
+          weekdays: {
+            monday: true,
+            tuesday: true,
+            wednesday: false,
+            thursday: true,
+            friday: false,
+            saturday: false,
+            sunday: true,
+          },
+        })
+      }).to.throw('invalid first-card active mode (3)')
     })
 
     it('should encode restore-default-parameters request', function () {

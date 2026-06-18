@@ -4,6 +4,7 @@ const describe = require('mocha').describe
 const it = require('mocha').it
 const expect = require('chai').expect
 const encoder = require('../nodes/encoder.js')
+const opcodes = require('../nodes/opcodes.js')
 
 describe('encoder', function () {
   it('should encode set-ip request', function () {
@@ -79,13 +80,6 @@ describe('encoder', function () {
   it('should encode set-firstcard request', function () {
     const controller = 405419896
     const door = 3
-    const firstcard = {
-      startTime: '8:30',
-      endTime: '17:45',
-      activeMode: 'normally-open',
-      inactiveMode: 'first-card only',
-      weekdays: ['Mon', 'Tue', 'Thurs', 'Sun'],
-    }
 
     // prettier-ignore
     const expected = Buffer.from([
@@ -95,7 +89,24 @@ describe('encoder', function () {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     ])
 
-    const request = encoder.SetFirstCard(controller, { door, firstcard })
+    const request = encoder.SetFirstCard(controller, {
+      door,
+      startTime: '08:30',
+      endTime: '17:45',
+      modes: {
+        active: opcodes.NormallyOpen,
+        inactive: opcodes.FirstCardOnly,
+      },
+      weekdays: {
+        monday: true,
+        tuesday: true,
+        wednesday: false,
+        thursday: true,
+        friday: false,
+        saturday: false,
+        sunday: true,
+      },
+    })
 
     expect(request).to.deep.equal(expected)
   })

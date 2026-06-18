@@ -1,5 +1,6 @@
 const { Buffer } = require('node:buffer')
 const ipx = require('./ipx.js')
+const opcodes = require('./opcodes.js')
 
 module.exports = {
   /**
@@ -850,37 +851,41 @@ module.exports = {
   /**
    * Encodes a set-firstcard request.
    *
-   * @param {controller} Controller serial number.
-   * @param {door}       Door ID [1..4].
-   * @param {firstcard}  First-card configuration.
+   * @param {controller}         Controller serial number.
+   * @param {door}               Door ID [1..4].
+   * @param {startTime}          Time of day from which first-card can be activated.
+   * @param {endTime}            Time of day after which first-card is deactivated.
+   * @param {modes.active}       Door control mode when first card activated (0: controller, 1:normally open,
+   *                             2:normally closed)
+   * @param {modes.inactive}     Door control mode when first card deactivated (0: controller, 1:normally open,
+   *                             2:normally closed, 3:first-card only)
+   * @param {weekdays.monday}    Enables/disables first-card on Monday.
+   * @param {weekdays.tuesday}   Enables/disables first-card on Tuesday.
+   * @param {weekdays.wednesday} Enables/disables first-card on Wednesday.
+   * @param {weekdays.thursday}  Enables/disables first-card on Thursday.
+   * @param {weekdays.friday}    Enables/disables first-card on Friday.
+   * @param {weekdays.saturday}  Enables/disables first-card on Saturday.
+   * @param {weekdays.sunday}    Enables/disables first-card on Sunday.
    *
    * @return {buffer} 64 byte NodeJS buffer with encoded add-task request.
    */
-  SetFirstCard: function (controller, { door, firstcard } = {}) {
-    const mode = (m) => {
+  SetFirstCard: function (controller, { door, startTime, endTime, modes, weekdays } = {}) {
+    const lookup = (m) => {
       switch (m) {
-        case 'controlled':
+        case opcodes.Controlled:
           return 0
 
-        case 'normally-open':
+        case opcodes.NormallyOpen:
           return 1
 
-        case 'normally-closed':
+        case opcodes.NormallyClosed:
           return 2
 
-        case 'first-card only':
+        case opcodes.FirstCardOnly:
           return 3
 
         default:
           return -1
-      }
-    }
-
-    const weekday = (day) => {
-      if (firstcard.weekdays) {
-        const v = firstcard.weekdays.find((d) => d.toLowerCase().startsWith(day.substring(0, 2)))
-
-        return v == null ? 0 : 1
       }
     }
 
@@ -891,39 +896,39 @@ module.exports = {
     request.writeUInt32LE(controller, 4)
     request.writeUInt8(door, 8)
 
-    if (firstcard.startTime && /[0-9]{1,2}:[0-9]{2}/.test(firstcard.startTime)) {
-      HHmm2bin(firstcard.startTime).copy(request, 9)
+    if (startTime && /[0-9]{1,2}:[0-9]{2}/.test(startTime)) {
+      HHmm2bin(startTime).copy(request, 9)
     } else {
-      throw new Error(`invalid first-card start time (${firstcard.startTime})`)
+      throw new Error(`invalid first-card start time (${startTime})`)
     }
 
-    const activeMode = mode(firstcard.activeMode)
-    if (activeMode !== 0 && activeMode !== 1 && activeMode !== 2) {
-      throw new Error(`invalid first-card active mode (${firstcard.activeMode})`)
+    const active = lookup(modes.active)
+    if (active !== 0 && active !== 1 && active !== 2) {
+      throw new Error(`invalid first-card active mode (${active})`)
     } else {
-      request.writeUInt8(activeMode, 11)
+      request.writeUInt8(active, 11)
     }
 
-    if (firstcard.endTime && /[0-9]{1,2}:[0-9]{2}/.test(firstcard.endTime)) {
-      HHmm2bin(firstcard.endTime).copy(request, 12)
+    if (endTime && /[0-9]{1,2}:[0-9]{2}/.test(endTime)) {
+      HHmm2bin(endTime).copy(request, 12)
     } else {
-      throw new Error(`invalid first-card end time (${firstcard.endTime})`)
+      throw new Error(`invalid first-card end time (${endTime})`)
     }
 
-    const inactiveMode = mode(firstcard.inactiveMode)
-    if (inactiveMode !== 0 && inactiveMode !== 1 && inactiveMode !== 2 && inactiveMode != 3) {
-      throw new Error(`invalid first-card inactive mode (${firstcard.inactiveMode})`)
+    const inactive = lookup(modes.inactive)
+    if (inactive !== 0 && inactive !== 1 && inactive !== 2 && inactive != 3) {
+      throw new Error(`invalid first-card inactive mode (${inactive})`)
     } else {
-      request.writeUInt8(inactiveMode, 14)
+      request.writeUInt8(inactive, 14)
     }
 
-    request.writeUint8(weekday('monday'), 15)
-    request.writeUint8(weekday('tuesday'), 16)
-    request.writeUint8(weekday('wednesday'), 17)
-    request.writeUint8(weekday('thursday'), 18)
-    request.writeUint8(weekday('friday'), 19)
-    request.writeUint8(weekday('saturday'), 20)
-    request.writeUint8(weekday('sunday'), 21)
+    packBool(request, 15, weekdays.monday)
+    packBool(request, 16, weekdays.tuesday)
+    packBool(request, 17, weekdays.wednesday)
+    packBool(request, 18, weekdays.thursday)
+    packBool(request, 19, weekdays.friday)
+    packBool(request, 20, weekdays.saturday)
+    packBool(request, 21, weekdays.sunday)
 
     return request
   },
@@ -945,6 +950,23 @@ module.exports = {
 
     return request
   },
+}
+
+/**
+ * Internal utility function to encode a boolean value as a uint8.
+ *
+ * @param {buffer}  request Packet buffer
+ * @param {number}  offset  Index of time in buffer
+ * @param {boolean} v       true/false
+ *
+ * @private
+ */
+function packBool(request, offset, v) {
+  if (v === true) {
+    request.writeUint8(1, offset)
+  } else {
+    request.writeUint8(0, offset)
+  }
 }
 
 /**
