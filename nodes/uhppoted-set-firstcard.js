@@ -36,24 +36,24 @@ module.exports = function (RED) {
         }
 
         // unpack firstcard
+        const modes = new Map([
+          ['controlled', opcodes.Controlled],
+          ['normally open', opcodes.NormallyOpen],
+          ['normally closed', opcodes.NormallyClosed],
+          ['first-card only', opcodes.FirstCardOnly],
+
+          [this.translate('modeControlled'), opcodes.Controlled],
+          [this.translate('modeNormallyOpen'), opcodes.NormallyOpen],
+          [this.translate('modeNormallyClosed'), opcodes.NormallyClosed],
+          [this.translate('modeFirstCardOnly'), opcodes.FirstCardOnly],
+        ])
 
         const mode = (m) => {
-          switch (m) {
-            case 'controlled':
-              return opcodes.Controlled
-
-            case 'normally-open':
-              return opcodes.NormallyOpen
-
-            case 'normally-closed':
-              return opcodes.NormallyClosed
-
-            case 'first-card only':
-              return opcodes.FirstCardOnly
-
-            default:
-              throw new Error(`invalid first-card mode (${m})`)
+          if (!modes.has(m)) {
+            throw new Error(`invalid first-card mode (${m})`)
           }
+
+          return modes.get(m)
         }
 
         const weekday = (day) => {

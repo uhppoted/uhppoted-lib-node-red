@@ -11,7 +11,7 @@
       - [x] fix snake_case stuff
       - [x] rework encoder to use unpacked firstcard
       - [ ] internationalisation
-          - allow translation for active/inactive modes
+          - [x] allow translation for active/inactive modes
           - encoder active/inactive errors
       - [x] integration tests
       - [x] CHANGELOG

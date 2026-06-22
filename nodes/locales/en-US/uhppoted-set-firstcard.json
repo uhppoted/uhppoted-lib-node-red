@@ -1,6 +1,11 @@
 {
     "uhppoted-set-firstcard": {
         "inputLabel": "controller ID\ndoor\nfirstcard",
-        "outputLabel": "ok"
+        "outputLabel": "ok",
+
+        "modeNormallyOpen": "normally open",
+        "modeNormallyClosed": "normally closed",
+        "modeControlled": "controlled",
+        "modeFirstCardOnly": "first-card only"
     }
 }

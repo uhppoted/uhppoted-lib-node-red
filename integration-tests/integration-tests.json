@@ -2459,6 +2459,7 @@
         "name": "validate-get-device",
         "func": "const device = msg.payload.device\n\nif (device.serialNumber !== 405419896) {\n    node.status({ fill:'red', shape:'dot', text:'failed'})\n    console.log('debug/1')\n    return msg\n}\n\nif (device.address !== '192.168.1.125') {\n    node.status({ fill:'red', shape:'dot', text:'failed'})\n    return msg\n}\n\nif (device.netmask !== '255.255.255.0') {\n    node.status({ fill:'red', shape:'dot', text:'failed'})\n    return msg\n}\n\nif (device.gateway !== '192.168.1.1') {\n    node.status({ fill:'red', shape:'dot', text:'failed'})\n    return msg\n}\n\nif (device.MAC !== '00:12:23:34:45:56') {\n    node.status({ fill:'red', shape:'dot', text:'failed'})\n    return msg\n}\n    \nif (device.version !== '0892') {\n    node.status({ fill:'red', shape:'dot', text:'failed'})\n    return msg\n}\n\nif (device.date !== '2018-11-05') {\n    node.status({ fill:'red', shape:'dot', text:'failed'})\n    return msg\n}\n\nnode.status({ fill:'green', shape:'dot', text:'ok' })\n\nreturn msg;",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
         "initialize": "\n",
         "finalize": "",
@@ -3292,7 +3293,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\"deviceId\":405419896,\"door\":3,\"firstcard\":{\"startTime\":\"08:30\",\"endTime\":\"16:45\",\"activeMode\":\"normally-open\",\"inactiveMode\":\"first-card only\",\"weekdays\":[\"Monday\",\"Tuesday\",\"Wednesday\",\"Friday\"]}}",
+                "to": "{\"deviceId\":405419896,\"door\":3,\"firstcard\":{\"startTime\":\"08:30\",\"endTime\":\"16:45\",\"activeMode\":\"normally open\",\"inactiveMode\":\"first-card only\",\"weekdays\":[\"Monday\",\"Tuesday\",\"Wednesday\",\"Friday\"]}}",
                 "tot": "json"
             }
         ],
@@ -5749,7 +5750,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\"controller\":{\"id\":405419896,\"address\":\"192.168.1.125:60000\",\"protocol\":\"udp\"},\"door\":3,\"firstcard\":{\"startTime\":\"08:30\",\"endTime\":\"16:45\",\"activeMode\":\"normally-open\",\"inactiveMode\":\"first-card only\",\"weekdays\":[\"Monday\",\"Tuesday\",\"Friday\"]}}",
+                "to": "{\"controller\":{\"id\":405419896,\"address\":\"192.168.1.125:60000\",\"protocol\":\"udp\"},\"door\":3,\"firstcard\":{\"startTime\":\"08:30\",\"endTime\":\"16:45\",\"activeMode\":\"normally open\",\"inactiveMode\":\"first-card only\",\"weekdays\":[\"Monday\",\"Tuesday\",\"Friday\"]}}",
                 "tot": "json"
             }
         ],
@@ -8201,7 +8202,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\"controller\":{\"id\":405419896,\"address\":\"192.168.1.125:60000\",\"protocol\":\"tcp\"},\"door\":3,\"firstcard\":{\"startTime\":\"08:30\",\"endTime\":\"16:45\",\"activeMode\":\"normally-open\",\"inactiveMode\":\"first-card only\",\"weekdays\":[\"Monday\",\"Tuesday\",\"Friday\"]}}",
+                "to": "{\"controller\":{\"id\":405419896,\"address\":\"192.168.1.125:60000\",\"protocol\":\"tcp\"},\"door\":3,\"firstcard\":{\"startTime\":\"08:30\",\"endTime\":\"16:45\",\"activeMode\":\"normally open\",\"inactiveMode\":\"first-card only\",\"weekdays\":[\"Monday\",\"Tuesday\",\"Friday\"]}}",
                 "tot": "json"
             }
         ],
