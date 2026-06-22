@@ -708,7 +708,7 @@ describe('codec', function () {
             sunday: true,
           },
         })
-      }).to.throw('invalid first-card active mode (3)')
+      }).to.throw('invalid first-card active mode (first-card only)')
     })
 
     it('should encode restore-default-parameters request', function () {

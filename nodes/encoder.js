@@ -867,10 +867,12 @@ module.exports = {
    * @param {weekdays.saturday}  Enables/disables first-card on Saturday.
    * @param {weekdays.sunday}    Enables/disables first-card on Sunday.
    *
+   * @param {function} translator (optional) function to internationalise error messages.
+   *
    * @return {buffer} 64 byte NodeJS buffer with encoded add-task request.
    */
   SetFirstCard: function (controller, { door, startTime, endTime, modes, weekdays } = {}) {
-    const lookup = (m) => {
+    const mode = (m) => {
       switch (m) {
         case opcodes.Controlled:
           return 0
@@ -889,6 +891,25 @@ module.exports = {
       }
     }
 
+    const lookup = (m) => {
+      switch (m) {
+        case 0:
+          return 'controlled'
+
+        case 1:
+          return 'normally open'
+
+        case 2:
+          return 'normally closed'
+
+        case 3:
+          return 'first-card only'
+
+        default:
+          return `${m}`
+      }
+    }
+
     const request = Buffer.alloc(64)
 
     request.writeUInt8(0x17, 0)
@@ -902,9 +923,9 @@ module.exports = {
       throw new Error(`invalid first-card start time (${startTime})`)
     }
 
-    const active = lookup(modes.active)
+    const active = mode(modes.active)
     if (active !== 0 && active !== 1 && active !== 2) {
-      throw new Error(`invalid first-card active mode (${active})`)
+      throw new Error(`invalid first-card active mode (${lookup(active)})`)
     } else {
       request.writeUInt8(active, 11)
     }
@@ -915,9 +936,9 @@ module.exports = {
       throw new Error(`invalid first-card end time (${endTime})`)
     }
 
-    const inactive = lookup(modes.inactive)
+    const inactive = mode(modes.inactive)
     if (inactive !== 0 && inactive !== 1 && inactive !== 2 && inactive != 3) {
-      throw new Error(`invalid first-card inactive mode (${inactive})`)
+      throw new Error(`invalid first-card inactive mode (${lookup(inactive)})`)
     } else {
       request.writeUInt8(inactive, 14)
     }
