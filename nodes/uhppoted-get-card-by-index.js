@@ -50,10 +50,12 @@ module.exports = function (RED) {
         }
 
         node.send(reply)
+        done()
       }
 
       const error = function (err) {
         common.error(node, err)
+        done(err)
       }
 
       try {
@@ -69,13 +71,8 @@ module.exports = function (RED) {
 
         uhppoted
           .get(context, controller.id, opcodes.GetCardByIndex, { index }, controller.address, controller.protocol)
-          .then((object) => {
-            emit(object)
-          })
-          .then(done())
-          .catch((err) => {
-            error(err)
-          })
+          .then(emit)
+          .catch(error)
       } catch (err) {
         error(err)
       }

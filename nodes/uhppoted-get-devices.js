@@ -17,10 +17,12 @@ module.exports = function (RED) {
 
       const emit = function (devices) {
         common.emit(node, t, devices)
+        done()
       }
 
       const error = function (err) {
         common.error(node, err)
+        done(err)
       }
 
       try {
@@ -34,15 +36,7 @@ module.exports = function (RED) {
           },
         }
 
-        uhppoted
-          .broadcast(context, opcodes.GetDevice, {})
-          .then((objects) => {
-            emit(objects)
-          })
-          .then(done())
-          .catch((err) => {
-            error(err)
-          })
+        uhppoted.broadcast(context, opcodes.GetDevice, {}).then(emit).catch(error)
       } catch (err) {
         error(err)
       }

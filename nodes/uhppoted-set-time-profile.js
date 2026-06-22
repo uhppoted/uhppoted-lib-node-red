@@ -18,11 +18,17 @@ module.exports = function (RED) {
       const profile = msg.payload.profile
 
       const emit = function (object) {
+        if (object) {
+          object.profileId = profile.id
+        }
+
         common.emit(node, t, object)
+        done()
       }
 
       const error = function (err) {
         common.error(node, err)
+        done(err)
       }
 
       try {
@@ -38,17 +44,8 @@ module.exports = function (RED) {
 
         uhppoted
           .set(context, controller.id, opcodes.SetTimeProfile, { profile }, controller.address, controller.protocol)
-          .then((object) => {
-            if (object) {
-              object.profileId = profile.id
-            }
-
-            emit(object)
-          })
-          .then(done())
-          .catch((err) => {
-            error(err)
-          })
+          .then(emit)
+          .catch(error)
       } catch (err) {
         error(err)
       }

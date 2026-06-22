@@ -18,10 +18,12 @@ module.exports = function (RED) {
 
       const emit = function (object) {
         common.emit(node, t, object)
+        done()
       }
 
       const error = function (err) {
         common.error(node, err)
+        done(err)
       }
 
       try {
@@ -35,15 +37,7 @@ module.exports = function (RED) {
           },
         }
 
-        uhppoted
-          .get(context, controller.id, opcodes.GetDevice, {}, controller.address, controller.protocol)
-          .then((object) => {
-            emit(object)
-          })
-          .then(done())
-          .catch((err) => {
-            error(err)
-          })
+        uhppoted.get(context, controller.id, opcodes.GetDevice, {}, controller.address, controller.protocol).then(emit).catch(error)
       } catch (err) {
         error(err)
       }

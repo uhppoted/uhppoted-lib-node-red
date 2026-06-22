@@ -20,10 +20,12 @@ module.exports = function (RED) {
 
       const emit = function (object) {
         common.emit(node, t, object)
+        done()
       }
 
       const error = function (err) {
         common.error(node, err)
+        done(err)
       }
 
       try {
@@ -60,35 +62,26 @@ module.exports = function (RED) {
           return firstcard?.weekdays?.some((d) => d.toLowerCase().startsWith(day.substring(0, 2))) ?? false
         }
 
-        uhppoted
-          .set(
-            context,
-            controller.id,
-            opcodes.SetFirstCard,
-            {
-              door: door,
-              startTime: firstcard.startTime,
-              endTime: firstcard.endTime,
-              modes: {
-                active: mode(firstcard.activeMode),
-                inactive: mode(firstcard.inactiveMode),
-              },
-              weekdays: {
-                monday: weekday('monday'),
-                tuesday: weekday('tuesday'),
-                wednesday: weekday('wednesday'),
-                thursday: weekday('thursday'),
-                friday: weekday('friday'),
-                saturday: weekday('saturday'),
-                sunday: weekday('sunday'),
-              },
-            },
-            controller.address,
-            controller.protocol,
-          )
-          .then((object) => emit(object))
-          .then(done())
-          .catch((err) => error(err))
+        const request = {
+          door: door,
+          startTime: firstcard.startTime,
+          endTime: firstcard.endTime,
+          modes: {
+            active: mode(firstcard.activeMode),
+            inactive: mode(firstcard.inactiveMode),
+          },
+          weekdays: {
+            monday: weekday('monday'),
+            tuesday: weekday('tuesday'),
+            wednesday: weekday('wednesday'),
+            thursday: weekday('thursday'),
+            friday: weekday('friday'),
+            saturday: weekday('saturday'),
+            sunday: weekday('sunday'),
+          },
+        }
+
+        uhppoted.set(context, controller.id, opcodes.SetFirstCard, request, controller.address, controller.protocol).then(emit).catch(error)
       } catch (err) {
         error(err)
       }

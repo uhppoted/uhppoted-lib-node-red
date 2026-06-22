@@ -19,10 +19,12 @@ module.exports = function (RED) {
 
       const emit = function (object) {
         common.emit(node, t, object)
+        done()
       }
 
       const error = function (err) {
         common.error(node, err)
+        done(err)
       }
 
       try {
@@ -36,13 +38,8 @@ module.exports = function (RED) {
 
         uhppoted
           .set(context, controller.id, opcodes.DeleteCard, { card: cardNumber }, controller.address, controller.protocol)
-          .then((object) => {
-            emit(object)
-          })
-          .then(done())
-          .catch((err) => {
-            error(err)
-          })
+          .then(emit)
+          .catch(error)
       } catch (err) {
         error(err)
       }
