@@ -10,6 +10,10 @@ DEBUG    ?= --debug
 .PHONY: test
 .PHONY: docker
 
+push:
+	git push
+	git push bitbucket
+
 update:
 	npm update
 # 	npm audit fix

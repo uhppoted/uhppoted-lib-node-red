@@ -5,6 +5,9 @@
 ### Added
 1. `uhppoted-set-firstcard` node.
 
+### Updated
+1. Migrated from _github.com/uhppoted/uhppoted-lib-node-red_ to _codeberg.org/uhppoted/uhppoted-lib-node-red_.
+
 
 ## [1.1.13](https://github.com/uhppoted/uhppoted-lib-node-red/releases/tag/v1.1.13) - 2026-01-27
 
