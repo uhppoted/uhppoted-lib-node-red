@@ -63,6 +63,14 @@
         <dd>access door 4 granted if true, managed by a time profile if uint8 in the range [2..254]</dd>
         <dt>card.PIN<span class="property-type">uint32 in the range [0..999999]</span></dt>
         <dd>card keypad PIN (optional)</dd>
+        <dt>card.firstcard.1<span class="property-type">boolean</span></dt>
+        <dd>card has door 1 first-card privilege enabled if true</dd>
+        <dt>card.firstcard.2<span class="property-type">boolean</span></dt>
+        <dd>card has door 2 first-card privilege enabled if true</dd>
+        <dt>card.firstcard.3<span class="property-type">boolean</span></dt>
+        <dd>card has door 3 first-card privilege enabled if true</dd>
+        <dt>card.firstcard.4<span class="property-type">boolean</span></dt>
+        <dd>card has door 4 first-card privilege enabled if true</dd>
     </dl>
     <h4>Example:</h4>
     <pre>
@@ -80,7 +88,13 @@
             "3": 29,
             "4": true
         },
-        PIN: 7531
+        "PIN": 7531,
+        "firstcard": {
+            "1": true,
+            "2": false,
+            "3": true,
+            "4": true            
+        }
     }
   }</pre>
     <pre>
@@ -102,7 +116,13 @@
             "3": 29,
             "4": true
         },
-        PIN: 7531
+        "PIN": 7531,
+        "firstcard": {
+            "1": true,
+            "2": false,
+            "3": true,
+            "4": true            
+        }
     }
   }</pre>
 

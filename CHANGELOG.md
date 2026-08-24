@@ -3,7 +3,8 @@
 ## Unreleased
 
 ### Added
-1. `uhppoted-set-firstcard` node.
+1. Implemented `uhppoted-set-firstcard` node to manage door _first-card_ control modes.
+2. Added _first-card privileges_ to the `get-card`, `get-card-at-index` and `put-card` nodes.
 
 ### Updated
 1. Migrated from _github.com/uhppoted/uhppoted-lib-node-red_ to _codeberg.org/uhppoted/uhppoted-lib-node-red_.

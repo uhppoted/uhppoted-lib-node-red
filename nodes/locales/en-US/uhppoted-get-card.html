@@ -55,7 +55,7 @@
     <pre>
   {
     "deviceId": 405419896,
-    "cardNumber": 61532836
+    "cardNumber": 10058400
   }</pre>
     <pre>
   {
@@ -64,7 +64,7 @@
         "address": "192.168.1.100",
         "protocol": "tcp"
     },
-    "cardNumber": 61532836
+    "cardNumber": 10058400
   }</pre>
 
     <p>The output <code>msg.payload</code> is a JSON object containing the card status and card record retrieved
@@ -85,15 +85,23 @@
         <dt>card.valid.to<span class="property-type">date</span></dt>
         <dd>end date (incusive) until which card is valid</d>
         <dt>card.doors.1<span class="property-type">boolean</span></dt>
-        <dd>true if the card number has access to door 1</d>
+        <dd>true if the card has access to door 1</d>
         <dt>card.doors.2<span class="property-type">boolean</span></dt>
-        <dd>true if the card number has access to door 2</d>
+        <dd>true if the card has access to door 2</d>
         <dt>card.doors.3<span class="property-type">boolean</span></dt>
-        <dd>true if the card number has access to door 3</d>
+        <dd>true if the card has access to door 3</d>
         <dt>card.doors.4<span class="property-type">boolean</span></dt>
-        <dd>true if the card number has access to door 4</d>
+        <dd>true if the card has access to door 4</d>
         <dt>card.PIN<span class="property-type">uint32</span></dt>
         <dd>card keypad PIN (in the range [0..999999]</d>
+        <dt>card.firstcard.1<span class="property-type">boolean</span></dt>
+        <dd>true if the card has first-card privilege for door 1</d>
+        <dt>card.firstcard.2<span class="property-type">boolean</span></dt>
+        <dd>true if the card has first-card privilege for door 2</d>
+        <dt>card.firstcard.3<span class="property-type">boolean</span></dt>
+        <dd>true if the card has first-card privilege for door 3</d>
+        <dt>card.firstcard.4<span class="property-type">boolean</span></dt>
+        <dd>true if the card has first-card privilege for door 4</d>
     </dl>
     <h4>Example:</h4>
     <pre>
@@ -101,22 +109,28 @@
     "deviceId": 405419896,
     "cardNumber": 61532836,
     "status": {
-        "code": s1,
-        "message": "card not found"
+        "code": 0,
+        "message": "card ok"
     },
     "card": {
-        "number": 61532836,
+        "number": 10058400,
         "valid": {
-            "from": "2020-01-01",
-            "to": "2020-12-31",
+            "from": "2026-01-01",
+            "to": "2026-12-31",
         },
         "doors": {
-            1: true,
-            2: false,
-            3: false,
-            4: true
+            "1": true,
+            "2": false,
+            "3": false,
+            "4": true
         },
-        PIN: 7531
+        "PIN": 7531,
+        "firstcard": {
+            "1": true,
+            "2": true,
+            "3": false,
+            "4": true            
+        }
     }
   }</pre>
     

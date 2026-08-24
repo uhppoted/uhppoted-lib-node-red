@@ -176,10 +176,9 @@ module.exports = {
    */
   GetCardByID: function (bytes, _translator) {
     const doors = {}
-    const offset = 20
 
     ;['1', '2', '3', '4'].forEach((door, index) => {
-      const permission = uint8(bytes, offset + index)
+      const permission = uint8(bytes, 20 + index)
 
       if (permission === 0) {
         doors[door] = false
@@ -189,6 +188,8 @@ module.exports = {
         doors[door] = permission
       }
     })
+
+    const firstcard = uint8(bytes, 27)
 
     return {
       deviceId: uint32(bytes, 4),
@@ -200,6 +201,12 @@ module.exports = {
         },
         doors,
         PIN: uint24(bytes, 24),
+        firstcard: {
+          1: (firstcard & 0x01) === 0x01,
+          2: (firstcard & 0x02) === 0x02,
+          3: (firstcard & 0x04) === 0x04,
+          4: (firstcard & 0x08) === 0x08,
+        },
       },
     }
   },
@@ -215,10 +222,9 @@ module.exports = {
    */
   GetCardByIndex: function (bytes, _translator) {
     const doors = {}
-    const offset = 20
 
     ;['1', '2', '3', '4'].forEach((door, index) => {
-      const permission = uint8(bytes, offset + index)
+      const permission = uint8(bytes, 20 + index)
 
       if (permission === 0) {
         doors[door] = false
@@ -228,6 +234,8 @@ module.exports = {
         doors[door] = permission
       }
     })
+
+    const firstcard = uint8(bytes, 27)
 
     return {
       deviceId: uint32(bytes, 4),
@@ -239,6 +247,12 @@ module.exports = {
         },
         doors,
         PIN: uint24(bytes, 24),
+        firstcard: {
+          1: (firstcard & 0x01) === 0x01,
+          2: (firstcard & 0x02) === 0x02,
+          3: (firstcard & 0x04) === 0x04,
+          4: (firstcard & 0x08) === 0x08,
+        },
       },
     }
   },

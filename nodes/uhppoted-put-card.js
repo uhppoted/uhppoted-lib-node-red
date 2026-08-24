@@ -38,6 +38,13 @@ module.exports = function (RED) {
           },
         }
 
+        const firstcard = {
+          1: card.firstcard?.[1] === true,
+          2: card.firstcard?.[2] === true,
+          3: card.firstcard?.[3] === true,
+          4: card.firstcard?.[4] === true,
+        }
+
         uhppoted
           .set(
             context,
@@ -49,6 +56,7 @@ module.exports = function (RED) {
               to: card.valid.to,
               doors: card.doors,
               PIN: card.PIN,
+              firstcard: firstcard,
             },
             controller.address,
             controller.protocol,

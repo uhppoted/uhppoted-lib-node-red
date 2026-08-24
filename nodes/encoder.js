@@ -310,16 +310,19 @@ module.exports = {
    * @param {object} doors     Object mapping door numbers 1..4 to access permission. A permission
    *                           may be true, false or a time profile in the range [2..254]
    * @param {number} PIN       Optional card PIN code in the range [0..999999]
+   * @param {object} firstcard Object mapping door numbers 1..4 to firstcard privileges. A firstcard
+   *                           privilege may be true (enabled) false (disabled)
    *
    * @return {buffer} 64 byte NodeJS buffer with encoded put-card request.
    */
-  PutCard: function (deviceId, { card, from, to, doors, PIN } = {}) {
+  PutCard: function (deviceId, { card, from, to, doors, PIN, firstcard } = {}) {
     const request = Buffer.alloc(64)
 
     request.writeUInt8(0x17, 0)
     request.writeUInt8(0x50, 1)
     request.writeUInt32LE(deviceId, 4)
     request.writeUInt32LE(card, 8)
+
     date2bin(from).copy(request, 12)
     date2bin(to).copy(request, 16)
     ;['1', '2', '3', '4'].forEach((door, index) => {
@@ -347,6 +350,17 @@ module.exports = {
       } else {
         uint24(pin).copy(request, 24)
       }
+    }
+
+    if (firstcard) {
+      let b = 0x00
+
+      b |= firstcard[1] === true ? 0x01 : 0x00
+      b |= firstcard[2] === true ? 0x02 : 0x00
+      b |= firstcard[3] === true ? 0x04 : 0x00
+      b |= firstcard[4] === true ? 0x08 : 0x00
+
+      request.writeUInt8(b, 27)
     }
 
     return request

@@ -64,6 +64,6 @@ simulator:
 
 docker:
 	docker run -it --publish 1880:1880 \
-	       --volume "$(PWD):/node-red-contrib-uhppoted" \
-	       -e FLOWS=/node-red-contrib-uhppoted/examples/examples.json \
-	       --name node-red --rm nodered/node-red
+       --volume "$(PWD):/node-red-contrib-uhppoted" \
+       -e FLOWS=/node-red-contrib-uhppoted/examples/examples.json \
+       --name node-red --rm nodered/node-red
