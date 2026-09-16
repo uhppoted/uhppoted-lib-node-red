@@ -1,11 +1,9 @@
-# node-red-contrib-uhppoted
-
+![build](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/twystd/2609d9356470acaf904386ce4a74f54e/raw/uhppoted-lib-node-red.json)
 [![platform](https://img.shields.io/badge/platform-Node--RED-red)](https://nodered.org)
 [![npm version](https://badge.fury.io/js/node-red-contrib-uhppoted.svg)](https://badge.fury.io/js/node-red-contrib-uhppoted)
 ![NPM](https://img.shields.io/npm/l/node-red-contrib-uhppoted)
-<!--
-![build](https://github.com/uhppoted/uhppoted-lib-node-red/workflows/build/badge.svg)
--->
+
+# node-red-contrib-uhppoted
 
 Node-RED module that implements an API for interacting with a UHPPOTE TCP/IP Wiegand access controller board. The API supports controller and card management
 as well support for controller events. 
@@ -52,7 +50,7 @@ or run the following command in your Node-RED user directory (e.g. `~/.node-red`
 
 Restart your Node-RED instance and you should have the `uhppoted` nodes available in the palette.
 
-If you want to try the development version from the [node‑red‑contrib‑uhppoted](https://codeberg.org/uhppoted/uhppoted-lib-node-red) _github_
+If you want to try the development version from the [node‑red‑contrib‑uhppoted](https://codeberg.org/uhppoted/uhppoted-lib-node-red) _codeberg_
 repository:
 
     cd ~/.node-red/node_modules
@@ -175,7 +173,7 @@ to
 
 ### Examples
 
-The [node‑red‑contrib‑uhppoted](https://codeberg.org/uhppoted/uhppoted-lib-node-red) _github_ repository includes a set of [basic examples](https://codeberg.org/uhppoted/uhppoted-lib-node-red/tree/master/examples/examples.json) that demonstrate the usage of each node.:
+The [node‑red‑contrib‑uhppoted](https://codeberg.org/uhppoted/uhppoted-lib-node-red) _codeberg_ repository includes a set of [basic examples](https://codeberg.org/uhppoted/uhppoted-lib-node-red/tree/master/examples/examples.json) that demonstrate the usage of each node.:
 
 | Node               | Description                                                  |
 | ------------------ | ------------------------------------------------------------ |
@@ -196,7 +194,7 @@ The [node‑red‑contrib‑uhppoted](https://codeberg.org/uhppoted/uhppoted-lib
 
 ### Issues and Feature Requests
 
-Please create an issue in the [node‑red‑contrib‑uhppoted](https://codeberg.org/uhppoted/uhppoted-lib-node-red) _github_ repository.
+Please create an issue in the [node‑red‑contrib‑uhppoted](https://codeberg.org/uhppoted/uhppoted-lib-node-red) _codeberg_ repository.
 
 ### License
 
