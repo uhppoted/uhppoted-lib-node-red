@@ -26,13 +26,15 @@ as well support for controller events.
 
 ##### Current Release
 
-**[v1.1.13](https://codeberg.org/uhppoted/uhppoted-lib-node-red/releases/tag/v1.1.13) - 2026-01-27**
+## [1.1.14](https://codeberg.org/uhppoted/uhppoted-lib-node-red/releases/tag/v1.1.14) - 2026-09-17
 
-1. Updated to NodeRED 4.1.4.
-2. Reworked examples to run in Docker container.
-3. Reworked integration tests to run in Docker container.
-4. Removed _dashboard_ example (`node-red-dashboard` component deprecated by NodeRED team).
-5. Changed repository to [uhppoted-lib-node-red](https://codeberg.org/uhppoted/uhppoted-lib-node-red).
+1. Migrated repository from _github_ to _codeberg_.
+2. Updated to NodeRED 5.07.
+3. Implemented `uhppoted-set-firstcard` node to manage door _first-card_ control modes.
+4. Added _first-card privileges_ to the `get-card`, `get-card-at-index` and `put-card` nodes.
+5. Added retry when ephemeral UDP port collides with broadcast port.
+6. Added retry when ephemeral TCP port collides with destination port.
+
 
 
 #### Requirements:

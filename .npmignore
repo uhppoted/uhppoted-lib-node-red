@@ -2,8 +2,13 @@ Makefile
 .eslintrc.js  
 *.tgz
 .github
+.prettierrc
+.prettierignore
+*.backup
 TODO.md
+NOTES.md
 docker
 test
 integration-tests
 examples/basic
+gemini

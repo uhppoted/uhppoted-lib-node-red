@@ -8,12 +8,6 @@
 - [x] Migrate to codeberg.org (cf. https://codeberg.org/uhppoted/uhppoted/issues/1)
 - [x] add first-card privilege to `get-card` and `put-card` (cf. https://codeberg.org/uhppoted/uhppoted/issues/3)
 - [x] Implement retry on UDP/TCP connect-to-self (cf. https://codeberg.org/uhppoted/uhppoted/issues/4)
-    - [x] udp
-    - [x] tcp
-    - [x] CHANGELOG
-    - [x] README
-
-- [ ] release
 
 
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/withResolvers
