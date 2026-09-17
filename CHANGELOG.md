@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## Unreleased
+
+
 ## [1.1.14](https://codeberg.org/uhppoted/uhppoted-lib-node-red/releases/tag/v1.1.14) - 2026-09-17
 
 ### Added
