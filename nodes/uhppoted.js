@@ -241,57 +241,93 @@ module.exports = {
  *
  */
 async function udp(ctx, dest, op, request, receive) {
-  const sock = dgram.createSocket(opts)
   const rq = codec.encode(op, ctx.deviceId, request)
+  const bindPort = 0
+  const sockets = []
   let timer = 0
-
-  const onerror = new Promise((resolve, reject) => {
-    sock.on('error', (err) => {
-      reject(err)
-    })
-  })
 
   const ontimeout = new Promise((_, reject) => {
     timer = setTimeout(() => reject(new Error('timeout')), ctx.timeout)
   })
 
   const send = new Promise((resolve, reject) => {
-    sock.on('listening', () => {
-      if (ctx.forceBroadcast || isBroadcast(dest.address)) {
-        sock.setBroadcast(true)
-      }
+    let retries = 0
 
-      sock.send(new Uint8Array(rq), 0, 64, dest.port, dest.address, (err, bytes) => {
-        if (err) {
-          reject(err)
+    const bind = () => {
+      retries++
+
+      const sock = dgram.createSocket(opts)
+
+      sockets.push(sock)
+
+      sock.on('error', (err) => {
+        reject(err)
+      })
+
+      sock.on('listening', () => {
+        const bindAddr = sock.address()
+
+        // send-to-self
+        //
+        // If the bind port is 0, retries (up to 5 times) until the OS binds to a port that is not the
+        // destination port. The interim sockets are retained to prevent the OS from reusing the invalid
+        // port, which it will happily do if the socket is closed immediately (hence the defer())
+        //
+        // It should really match on both address and port but multiple network cards, etc make it complicated
+        // and fragile.
+        if (bindAddr.port === dest.port && bindPort !== 0) {
+          reject(new Error(`UDP bind address:port ${bindAddr.port} reserved for broadcast`))
+        } else if (bindAddr.port === dest.port && retries >= 5) {
+          reject(new Error(`OS bound UDP socket to port ${bindAddr.port} reserved for broadcast`))
+        } else if (bindAddr.port === dest.port) {
+          setTimeout(bind, 0) // in lieu of setImmediate(bind)
         } else {
-          log(ctx.debug, 'sent', rq, ctx.addr)
-          resolve(bytes)
+          if (ctx.forceBroadcast || isBroadcast(dest.address)) {
+            sock.setBroadcast(true)
+          }
+
+          sock.on('message', (message, rinfo) => {
+            log(ctx.debug, 'received', message, rinfo)
+
+            receive.received(new Uint8Array(message))
+          })
+
+          sock.send(new Uint8Array(rq), 0, 64, dest.port, dest.address, (err, bytes) => {
+            if (err) {
+              reject(err)
+            } else {
+              log(ctx.debug, 'sent', rq, ctx.addr)
+              resolve(bytes)
+            }
+          })
         }
       })
-    })
 
-    sock.bind({
-      address: ctx.bind,
-      port: 0,
-    })
-  })
+      sock.bind({
+        address: ctx.bind,
+        port: bindPort,
+      })
+    }
 
-  sock.on('message', (message, rinfo) => {
-    log(ctx.debug, 'received', message, rinfo)
-
-    receive.received(new Uint8Array(message))
+    bind()
   })
 
   try {
-    const result = await Promise.race([onerror, ontimeout, Promise.all([receive, send])])
+    const result = await Promise.race([ontimeout, Promise.all([receive, send])])
 
     if (result && result.length === 2) {
       return result[0]
     }
   } finally {
     clearTimeout(timer)
-    sock.close()
+
+    for (const sock of sockets) {
+      try {
+        sock.close()
+      } catch (err) {
+        console.error(`WARN: error closing socket (${err})`)
+      }
+    }
   }
 
   throw new Error('no reply to request')
@@ -315,48 +351,83 @@ async function udp(ctx, dest, op, request, receive) {
  *
  */
 async function tcp(ctx, dest, op, request, receive) {
-  const sock = new net.Socket()
   const rq = codec.encode(op, ctx.deviceId, request)
+  const bindPort = 0
+  const sockets = []
   let timer = 0
-
-  const onerror = new Promise((resolve, reject) => {
-    sock.on('error', (err) => {
-      reject(err)
-    })
-  })
 
   const ontimeout = new Promise((_, reject) => {
     timer = setTimeout(() => reject(new Error(`timeout ${ctx.timeout}ms`)), ctx.timeout)
   })
 
   const send = new Promise((resolve, reject) => {
-    sock.on('connect', () => {
-      sock.write(new Uint8Array(rq), (err) => {
-        if (err) {
-          reject(err)
+    let retries = 0
+
+    const connect = () => {
+      retries++
+
+      const sock = new net.Socket()
+
+      sockets.push(sock)
+
+      sock.on('error', (err) => {
+        reject(err)
+      })
+
+      sock.on('connect', () => {
+        const bindAddr = sock.address()
+
+        // send-to-self
+        //
+        // If the bind port is 0, retries (up to 5 times) until the OS binds to a port that is not the
+        // destination port. The interim sockets are retained to prevent the OS from reusing the invalid
+        // port, which it will happily do if the socket is closed immediately (hence the defer())
+        //
+        // It should really match on both address and port but multiple network cards, etc make it complicated
+        // and fragile.
+        if (bindAddr.port === dest.port && bindPort !== 0) {
+          reject(new Error(`TCP bind address:port ${bindAddr.port} reserved for controllers`))
+        } else if (bindAddr.port === dest.port && retries >= 5) {
+          reject(new Error(`OS bound TCP socket to port ${bindAddr.port} reserved for controllers`))
+        } else if (bindAddr.port === dest.port) {
+          // NTS: close the write side only to signal the other side nothing is coming its way (otherwise you get
+          //      weird timeout issues while it waits for a request that it is never going to get).
+          //
+          //      Do NOT close here otherwise OS will potentially assign it again and we don't want that
+          sock.end()
+
+          setTimeout(connect, 0) // in lieu of setImmediate(connect)
         } else {
-          log(ctx.debug, 'TCP::sent', rq, dest)
-          resolve()
+          sock.on('data', (message) => {
+            log(ctx.debug, 'TCP::received', message)
+
+            receive.received(new Uint8Array(message))
+          })
+
+          sock.write(new Uint8Array(rq), (err) => {
+            if (err) {
+              reject(err)
+            } else {
+              log(ctx.debug, 'TCP::sent', rq, dest)
+              resolve()
+            }
+          })
         }
       })
-    })
 
-    sock.on('data', (message) => {
-      log(ctx.debug, 'TCP::received', message)
+      sock.connect({
+        host: dest.address,
+        port: dest.port,
+        localAddress: ctx.bind,
+        localPort: bindPort,
+      })
+    }
 
-      receive.received(new Uint8Array(message))
-    })
-
-    sock.connect({
-      host: dest.address,
-      port: dest.port,
-      localAddress: ctx.bind,
-      localPort: 0,
-    })
+    connect()
   })
 
   try {
-    const result = await Promise.race([onerror, ontimeout, Promise.all([receive, send])])
+    const result = await Promise.race([ontimeout, Promise.all([receive, send])])
 
     if (result && result.length === 2) {
       return result[0]
@@ -365,9 +436,73 @@ async function tcp(ctx, dest, op, request, receive) {
     throw new Error('no reply to request')
   } finally {
     clearTimeout(timer)
-    sock.destroy()
+
+    for (const sock of sockets) {
+      try {
+        sock.destroy()
+      } catch (err) {
+        console.error(`WARN: error closing socket (${err})`)
+      }
+    }
   }
 }
+
+// async function tcp(ctx, dest, op, request, receive) {
+//   const rq = codec.encode(op, ctx.deviceId, request)
+//   const bindPort = 0
+//   let timer = 0
+//
+//   const sock = new net.Socket()
+//
+//   const onerror = new Promise((resolve, reject) => {
+//     sock.on('error', (err) => {
+//       reject(err)
+//     })
+//   })
+//
+//   const ontimeout = new Promise((_, reject) => {
+//     timer = setTimeout(() => reject(new Error(`timeout ${ctx.timeout}ms`)), ctx.timeout)
+//   })
+//
+//   const send = new Promise((resolve, reject) => {
+//     sock.on('connect', () => {
+//       sock.write(new Uint8Array(rq), (err) => {
+//         if (err) {
+//           reject(err)
+//         } else {
+//           log(ctx.debug, 'TCP::sent', rq, dest)
+//           resolve()
+//         }
+//       })
+//     })
+//
+//     sock.on('data', (message) => {
+//       log(ctx.debug, 'TCP::received', message)
+//
+//       receive.received(new Uint8Array(message))
+//     })
+//
+//     sock.connect({
+//       host: dest.address,
+//       port: dest.port,
+//       localAddress: ctx.bind,
+//       localPort: bindPort,
+//     })
+//   })
+//
+//   try {
+//     const result = await Promise.race([onerror, ontimeout, Promise.all([receive, send])])
+//
+//     if (result && result.length === 2) {
+//       return result[0]
+//     }
+//
+//     throw new Error('no reply to request')
+//   } finally {
+//     clearTimeout(timer)
+//     sock.destroy()
+//   }
+// }
 
 /**
  * Utility function to reconcile supplied configuration against the default
