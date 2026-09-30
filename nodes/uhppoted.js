@@ -242,7 +242,7 @@ module.exports = {
  */
 async function udp(ctx, dest, op, request, receive) {
   const rq = codec.encode(op, ctx.deviceId, request)
-  const bindPort = 0
+  const bindAddr = stringToIP(ctx.bind, 0)
   const sockets = []
   let timer = 0
 
@@ -265,7 +265,7 @@ async function udp(ctx, dest, op, request, receive) {
       })
 
       sock.on('listening', () => {
-        const bindAddr = sock.address()
+        const bound = sock.address()
 
         // send-to-self
         //
@@ -275,11 +275,11 @@ async function udp(ctx, dest, op, request, receive) {
         //
         // It should really match on both address and port but multiple network cards, etc make it complicated
         // and fragile.
-        if (bindAddr.port === dest.port && bindPort !== 0) {
-          reject(new Error(`UDP bind address:port ${bindAddr.port} reserved for broadcast`))
-        } else if (bindAddr.port === dest.port && retries >= 5) {
-          reject(new Error(`OS bound UDP socket to port ${bindAddr.port} reserved for broadcast`))
-        } else if (bindAddr.port === dest.port) {
+        if (bound.port === dest.port && bindAddr.Port !== 0) {
+          reject(new Error(`UDP bind address:port ${bound.port} reserved for broadcast`))
+        } else if (bound.port === dest.port && retries >= 5) {
+          reject(new Error(`OS bound UDP socket to port ${bound.port} reserved for broadcast`))
+        } else if (bound.port === dest.port) {
           setTimeout(bind, 0) // in lieu of setImmediate(bind)
         } else {
           if (ctx.forceBroadcast || isBroadcast(dest.address)) {
@@ -304,8 +304,8 @@ async function udp(ctx, dest, op, request, receive) {
       })
 
       sock.bind({
-        address: ctx.bind,
-        port: bindPort,
+        address: bindAddr.address,
+        port: bindAddr.port,
       })
     }
 
@@ -352,7 +352,7 @@ async function udp(ctx, dest, op, request, receive) {
  */
 async function tcp(ctx, dest, op, request, receive) {
   const rq = codec.encode(op, ctx.deviceId, request)
-  const bindPort = 0
+  const bindAddr = stringToIP(ctx.bind, 0)
   const sockets = []
   let timer = 0
 
@@ -375,7 +375,7 @@ async function tcp(ctx, dest, op, request, receive) {
       })
 
       sock.on('connect', () => {
-        const bindAddr = sock.address()
+        const bound = sock.address()
 
         // send-to-self
         //
@@ -385,11 +385,11 @@ async function tcp(ctx, dest, op, request, receive) {
         //
         // It should really match on both address and port but multiple network cards, etc make it complicated
         // and fragile.
-        if (bindAddr.port === dest.port && bindPort !== 0) {
-          reject(new Error(`TCP bind address:port ${bindAddr.port} reserved for controllers`))
-        } else if (bindAddr.port === dest.port && retries >= 5) {
-          reject(new Error(`OS bound TCP socket to port ${bindAddr.port} reserved for controllers`))
-        } else if (bindAddr.port === dest.port) {
+        if (bound.port === dest.port && bindAddr.port !== 0) {
+          reject(new Error(`TCP bind address:port ${bound.port} reserved for controllers`))
+        } else if (bound.port === dest.port && retries >= 5) {
+          reject(new Error(`OS bound TCP socket to port ${bound.port} reserved for controllers`))
+        } else if (bound.port === dest.port) {
           // NTS: close the write side only to signal the other side nothing is coming its way (otherwise you get
           //      weird timeout issues while it waits for a request that it is never going to get).
           //
@@ -418,8 +418,8 @@ async function tcp(ctx, dest, op, request, receive) {
       sock.connect({
         host: dest.address,
         port: dest.port,
-        localAddress: ctx.bind,
-        localPort: bindPort,
+        localAddress: bindAddr.address,
+        localPort: bindAddr.port,
       })
     }
 
@@ -446,63 +446,6 @@ async function tcp(ctx, dest, op, request, receive) {
     }
   }
 }
-
-// async function tcp(ctx, dest, op, request, receive) {
-//   const rq = codec.encode(op, ctx.deviceId, request)
-//   const bindPort = 0
-//   let timer = 0
-//
-//   const sock = new net.Socket()
-//
-//   const onerror = new Promise((resolve, reject) => {
-//     sock.on('error', (err) => {
-//       reject(err)
-//     })
-//   })
-//
-//   const ontimeout = new Promise((_, reject) => {
-//     timer = setTimeout(() => reject(new Error(`timeout ${ctx.timeout}ms`)), ctx.timeout)
-//   })
-//
-//   const send = new Promise((resolve, reject) => {
-//     sock.on('connect', () => {
-//       sock.write(new Uint8Array(rq), (err) => {
-//         if (err) {
-//           reject(err)
-//         } else {
-//           log(ctx.debug, 'TCP::sent', rq, dest)
-//           resolve()
-//         }
-//       })
-//     })
-//
-//     sock.on('data', (message) => {
-//       log(ctx.debug, 'TCP::received', message)
-//
-//       receive.received(new Uint8Array(message))
-//     })
-//
-//     sock.connect({
-//       host: dest.address,
-//       port: dest.port,
-//       localAddress: ctx.bind,
-//       localPort: bindPort,
-//     })
-//   })
-//
-//   try {
-//     const result = await Promise.race([onerror, ontimeout, Promise.all([receive, send])])
-//
-//     if (result && result.length === 2) {
-//       return result[0]
-//     }
-//
-//     throw new Error('no reply to request')
-//   } finally {
-//     clearTimeout(timer)
-//     sock.destroy()
-//   }
-// }
 
 /**
  * Utility function to reconcile supplied configuration against the default
@@ -626,9 +569,8 @@ function format(message, pad) {
  * @returns {object} Object containing IP address and port as properties
  *
  */
-function stringToIP(addr) {
+function stringToIP(addr, port = 60000) {
   let address = addr
-  let port = 60000
 
   const re = /^(.*?)(?::([0-9]+))?$/
   const match = addr.match(re)
