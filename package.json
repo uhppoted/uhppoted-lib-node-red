@@ -79,5 +79,8 @@
     "globals": "^15.14.0",
     "mocha": ">=9.2.2",
     "prettier": "^3.8.1"
+  },
+  "allowScripts": {
+    "bcrypt@6.0.0": true
   }
 }

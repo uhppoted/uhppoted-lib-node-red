@@ -2,7 +2,6 @@
 
 ### In Progress
 
-
 ## To Be Done
 
 - [ ] Decoding an invalid reply throws `AggregateError` (cf. https://github.com/uhppoted/uhppoted-lib-node-red/issues/41)
