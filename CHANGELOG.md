@@ -15,7 +15,7 @@
 1. Migrated from _github.com/uhppoted/uhppoted-lib-node-red_ to _codeberg.org/uhppoted/uhppoted-lib-node-red_.
 
 
-## [1.1.13](https://codeberg.org/uhppoted/uhppoted-lib-node-red/releases/tag/v1.1.13) - 2026-01-27
+## [1.1.13](https://github.com/uhppoted/uhppoted-lib-node-red/releases/tag/v1.1.13) - 2026-01-27
 
 #### Updated
 1. Updated to NodeRED 4.1.4.

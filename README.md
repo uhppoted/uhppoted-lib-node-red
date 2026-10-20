@@ -1,7 +1,8 @@
-![build](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/twystd/2609d9356470acaf904386ce4a74f54e/raw/uhppoted-lib-node-red.json)
+![build](https://github.com/uhppoted/uhppoted-lib-node-red/workflows/build/badge.svg)
 [![platform](https://img.shields.io/badge/platform-Node--RED-red)](https://nodered.org)
 [![npm version](https://badge.fury.io/js/node-red-contrib-uhppoted.svg)](https://badge.fury.io/js/node-red-contrib-uhppoted)
 ![NPM](https://img.shields.io/npm/l/node-red-contrib-uhppoted)
+
 
 # node-red-contrib-uhppoted
 
